@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.user.LoginFragment">
+    android:orientation="vertical"
+    android:background="@drawable/gradient_vertical">
+
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/first_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:text="Vous devez vous connecter à votre compte pour compléter votre réservation "
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="27sp"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/email_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:height="50dp"
+        android:width="314dp"
+        android:background="@color/white"
+        android:hint="      Email"
+        />
+    <EditText
+        android:id="@+id/password_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:height="50dp"
+        android:width="314dp"
+        android:background="@color/white"
+        android:hint="      Mot de passe"
+
+
+        />
+    <CheckBox
+        android:id="@+id/privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="55dp"
+        android:text="J'accepte les roles et privacy"
+        android:textColor="@color/white"
+        android:checked="true"/>
+
+    <Button
+        android:id="@+id/connect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:height="51dp"
+        android:width="265dp"
+        android:text="Connexion"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_style"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Si vous n'avez pas de compte cliquez-ici"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/white"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Créer un compte"
+        android:textColor="@color/yellow"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="30dp"
+        />
+
+
+
+</LinearLayout>
