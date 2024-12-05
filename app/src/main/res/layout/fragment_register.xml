@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterFragment">
+    android:orientation="vertical"
+    android:background="@drawable/gradient_vertical"
+    tools:context=".ui.register.RegisterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="50dp"
+        android:text="Inscription"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
-</FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <EditText
+                android:id="@+id/nom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginVertical="15dp"
+                android:padding="18dp"
+                android:inputType="text"
+                android:hint="Inserez votre nom"
+                 />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="textEmailAddress"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginVertical="15dp"
+                android:padding="18dp"
+                android:hint="Email"/>
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="textEmailAddress"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginVertical="15dp"
+                android:padding="18dp"
+                android:hint="Mot de passe"/>
+
+            <EditText
+                android:id="@+id/conf_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="numberPassword"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginVertical="15dp"
+                android:padding="18dp"
+                android:hint="Confirmez votre mot de passe"/>
+        </LinearLayout>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkbox"
+            android:text="J'accepte les conditions d'utilisation"
+            android:layout_marginHorizontal="25dp"
+            android:textColor="@color/white"
+            android:checked="true"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            style="@style/MyCustomButtonStyle"
+            android:textColor="@color/black"
+            android:text="S'inscrire"/>
+
+
+
+
+
+
+</LinearLayout>
