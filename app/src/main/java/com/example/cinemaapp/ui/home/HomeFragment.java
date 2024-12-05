@@ -1,4 +1,4 @@
-package com.example.cinemaapp;
+package com.example.cinemaapp.ui.home;
 
 import android.os.Bundle;
 
@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.cinemaapp.R;
+import com.example.cinemaapp.adapter.MovieAdapter;
+import com.example.cinemaapp.data.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;

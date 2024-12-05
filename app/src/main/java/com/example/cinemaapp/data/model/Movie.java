@@ -1,4 +1,4 @@
-package com.example.cinemaapp;
+package com.example.cinemaapp.data.model;
 
 public class Movie {
     private String title;
