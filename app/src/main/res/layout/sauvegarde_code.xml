@@ -9,14 +9,14 @@
     android:layout_height="843dp">
 
     <ImageView
-        android:id="@+id/img_rectangle"
+        android:id="@+id/main_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img_rectangle"
+        android:background="@drawable/mrw_img_rectangle"
         android:scaleType="centerCrop" />
 
     <ImageView
-        android:id="@+id/img_icon"
+        android:id="@+id/done_icon"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginLeft="161dp"
@@ -24,12 +24,12 @@
         android:layout_marginTop="406dp"
         android:layout_marginBottom="362dp"
         android:scaleType="centerInside"
-        android:src="@drawable/img_icon" />
+        android:src="@drawable/mrw_img_icon" />
 
 
 
     <FrameLayout
-        android:id="@+id/container_group1"
+        android:id="@+id/cont_nav3"
         android:layout_width="359dp"
         android:layout_height="match_parent"
         android:layout_marginRight="17dp"
@@ -38,25 +38,25 @@
         android:layout_gravity="right">
 
         <FrameLayout
-            android:id="@+id/container_group2"
+            android:id="@+id/container_nav3"
             android:layout_width="match_parent"
             android:layout_height="66dp"
             android:layout_gravity="top">
 
             <FrameLayout
-                android:id="@+id/container_group3"
+                android:id="@+id/container_nav31"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/img_rectangle1"
+                    android:id="@+id/img_rect31"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/img_rectangle1"
+                    android:background="@drawable/mrw_img_rectangle1"
                     android:scaleType="centerCrop" />
 
                 <ImageView
-                    android:id="@+id/img_frame"
+                    android:id="@+id/img_frame31"
                     android:layout_width="match_parent"
                     android:layout_height="30.7dp"
                     android:layout_marginLeft="13.19dp"
@@ -70,6 +70,7 @@
 
 
         <FrameLayout
+            android:id="@+id/frame_31"
             android:layout_width="25dp"
             android:layout_height="38dp"
             android:layout_marginLeft="91dp"
@@ -80,22 +81,24 @@
             android:paddingBottom="12dp">
 
             <LinearLayout
-                android:id="@+id/container_frame"
+                android:id="@+id/container_frame31"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal|top"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/img_icon1"
+                    android:id="@+id/img_icon31"
                     android:layout_width="21dp"
                     android:layout_height="22dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/img_icon1" />
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/mrw_img_icon1" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_recherche"
+                android:id="@+id/txt_recherche31"
                 android:layout_width="55dp"
                 android:layout_height="14dp"
                 android:layout_marginLeft="-13dp"
@@ -112,7 +115,7 @@
         </FrameLayout>
 
         <TextView
-            android:id="@+id/container_frame1"
+            android:id="@+id/container_icon31"
             android:layout_width="43dp"
             android:layout_height="14dp"
             android:layout_marginLeft="13dp"
@@ -128,7 +131,7 @@
             android:textSize="10dp" />
 
         <ImageView
-            android:id="@+id/container_group4"
+            android:id="@+id/contai_nav31"
             android:layout_width="50dp"
             android:layout_height="51dp"
             android:layout_marginLeft="158dp"
@@ -136,10 +139,12 @@
             android:layout_marginTop="6dp"
             android:layout_gravity="top"
             android:scaleType="centerInside"
-            android:src="@drawable/container_group4" />
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/mrw_container_group4" />
 
         <ImageView
-            android:id="@+id/img_frame1"
+            android:id="@+id/img_icon_nav3"
             android:layout_width="19dp"
             android:layout_height="19dp"
             android:layout_marginLeft="312dp"
@@ -147,10 +152,12 @@
             android:layout_marginTop="17dp"
             android:layout_gravity="top"
             android:scaleType="centerInside"
-            android:src="@drawable/img_frame1" />
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/mrw_img_frame1" />
 
         <TextView
-            android:id="@+id/txt_profile"
+            android:id="@+id/txt_profile_nav3"
             android:layout_width="match_parent"
             android:layout_height="14dp"
             android:layout_marginLeft="300dp"
@@ -166,6 +173,7 @@
             android:textSize="10dp" />
 
         <FrameLayout
+            android:id="@+id/frame32"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="208dp"
@@ -176,7 +184,7 @@
             android:paddingBottom="7dp">
 
             <TextView
-                android:id="@+id/txt_historique"
+                android:id="@+id/txt_historique_nav3"
                 android:layout_width="match_parent"
                 android:layout_height="14dp"
                 android:layout_marginLeft="2dp"
@@ -193,7 +201,7 @@
         </FrameLayout>
 
         <ImageView
-            android:id="@+id/img_icon3"
+            android:id="@+id/img_icon3_nav3"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginLeft="240dp"
@@ -201,31 +209,36 @@
             android:layout_marginTop="15dp"
             android:layout_gravity="top"
             android:scaleType="centerInside"
-            android:src="@drawable/img_icon3" />
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/mrw_img_icon3" />
 
         <ImageView
-            android:id="@+id/img_shape"
+            android:id="@+id/img_shape_nav3"
             android:layout_width="18dp"
             android:layout_height="19dp"
             android:layout_marginLeft="26dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="top|left"
             android:scaleType="centerInside"
-            android:src="@drawable/img_shape" />
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/mrw_img_shape" />
     </FrameLayout>
 
     <ImageView
-        android:id="@+id/img_group"
+        android:id="@+id/img_retour"
         android:layout_width="33dp"
         android:layout_height="33dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="66dp"
         android:layout_gravity="top|left"
         android:scaleType="centerInside"
-        android:src="@drawable/img_group" />
+
+        android:src="@drawable/mrw_img_group" />
 
     <TextView
-        android:id="@+id/container_group6"
+        android:id="@+id/textContainer"
         android:layout_width="316dp"
         android:layout_height="100dp"
         android:layout_marginLeft="39dp"
