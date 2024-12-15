@@ -1,24 +1,23 @@
-package com.example.cinemaapp;
+package com.example.cinemaapp.ui.snack;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.cinemaapp.R;
+import com.example.cinemaapp.adapter.SnackAdapter;
+import com.example.cinemaapp.ui.snack.SnackItem;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class SnackFragment extends Fragment {
 

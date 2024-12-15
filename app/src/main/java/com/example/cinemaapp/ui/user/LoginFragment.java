@@ -2,13 +2,21 @@ package com.example.cinemaapp.ui.user;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.data.api.LoginRequest;
+import com.example.cinemaapp.viewmodel.UserViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +33,8 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private UserViewModel userViewModel;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -62,5 +72,26 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        EditText emailEditText = view.findViewById(R.id.email_text);
+        EditText passwordEditText = view.findViewById(R.id.password_text);
+        Button button = view.findViewById(R.id.connect_button);
+
+        button.setOnClickListener(v -> {
+            LoginRequest request = new LoginRequest();
+            request.setEmail(emailEditText.getText().toString());
+            request.setPassword(passwordEditText.getText().toString());
+            userViewModel.login(request);
+        });
+
+        userViewModel.getStatusMessage().observe(getViewLifecycleOwner(), message -> {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        });
+
     }
 }

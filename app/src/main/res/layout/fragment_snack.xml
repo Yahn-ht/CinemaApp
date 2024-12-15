@@ -5,7 +5,7 @@
     android:background="@drawable/gradient_vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SnackFragment"
+    tools:context=".ui.snack.SnackFragment"
     android:padding="20dp">
 
     <TextView
