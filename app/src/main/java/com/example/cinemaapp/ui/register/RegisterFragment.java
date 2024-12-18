@@ -2,13 +2,28 @@ package com.example.cinemaapp.ui.register;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.data.api.LoginRequest;
+import com.example.cinemaapp.data.api.RegisterRequest;
+import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.data.repository.UserRepository;
+import com.example.cinemaapp.injection.UserModelFactory;
+import com.example.cinemaapp.viewmodel.UserViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +40,7 @@ public class RegisterFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private UserViewModel userViewModel;
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -62,5 +77,56 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TokenManager tokenManager = TokenManager.getInstance(requireContext());
+        //TokenManager tokenManager = (requireContext());
+        userViewModel = new ViewModelProvider(this, UserModelFactory.getInstance(new UserRepository(), tokenManager)).get(UserViewModel.class);
+        EditText nomEdit= view.findViewById(R.id.nom);
+        EditText emailEdit= view.findViewById(R.id.email);
+        EditText passwordEdit = view.findViewById(R.id.password);
+        EditText conf_passwordEdit = view.findViewById(R.id.conf_password);
+        Button register = view.findViewById(R.id.register);
+        TextView login_text = view.findViewById(R.id.login_text);
+
+        register.setOnClickListener(v -> {
+            String nom= nomEdit.getText().toString().trim();
+            String email = emailEdit.getText().toString().trim();
+            String password= passwordEdit.getText().toString().trim();
+            String conf_password= conf_passwordEdit.getText().toString().trim();
+            if(!conf_password.equals(password)){
+                Toast.makeText(requireContext(),"The password must be the same",Toast.LENGTH_SHORT).show();
+            }
+             else if (!email.isEmpty() && !password.isEmpty() && !nom.isEmpty()) {
+
+                RegisterRequest request = new RegisterRequest();
+                request.setName(nom);
+                request.setEmail(email);
+                request.setPassword(password);
+                userViewModel.register(request);
+            } else {
+                Toast.makeText(requireContext(), "All fields must be filled in.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        login_text.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_register_to_login);
+        });
+
+        userViewModel.getStatusMessage().observe(getViewLifecycleOwner(), message -> {
+            if (message.startsWith("Registration successful")) {
+                // Navigation vers HomeFragment
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.action_register_to_login);
+            } else if (message.startsWith("Error")) {
+                // Afficher un message d'erreur
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

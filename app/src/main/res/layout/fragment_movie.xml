@@ -107,7 +107,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:background="@drawable/schedule_background"
                 android:text="17:45\nVO"
                 android:textColor="@color/white"
                 android:padding="8dp" />
@@ -117,7 +116,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:background="@drawable/schedule_background"
                 android:text="20:00\nVOSTFR"
                 android:textColor="@color/white"
                 android:padding="8dp" />
@@ -127,7 +125,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:background="@drawable/schedule_background"
                 android:text="22:30\nVOSTFR"
                 android:textColor="@color/white"
                 android:padding="8dp" />
