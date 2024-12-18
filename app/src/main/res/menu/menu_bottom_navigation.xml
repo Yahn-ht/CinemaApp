@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_films"
+        android:icon="@drawable/ic_movie"
+        android:title="Film"
+        />
+
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_search"
+        android:title="Rechercher"
+         />
+
+    <item
+        android:id="@+id/nav_placeholder"
+        android:icon="@drawable/fav"
+        android:iconTint="@color/yellow"
+        android:title=""/>
+
+    <item
+        android:id="@+id/nav_history"
+        android:icon="@drawable/ic_historique"
+        android:title="Historique"
+        />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profil"
+        android:title="Profile"
+         />
+</menu>

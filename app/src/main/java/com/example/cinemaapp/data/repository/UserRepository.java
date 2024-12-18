@@ -1,5 +1,7 @@
 package com.example.cinemaapp.data.repository;
 
+import androidx.annotation.NonNull;
+
 import com.example.cinemaapp.data.api.ApiCallback;
 import com.example.cinemaapp.data.api.AuthApi;
 import com.example.cinemaapp.data.api.LoginRequest;
@@ -7,6 +9,9 @@ import com.example.cinemaapp.data.api.LoginResponse;
 import com.example.cinemaapp.data.api.RegisterRequest;
 import com.example.cinemaapp.data.api.RegisterResponse;
 import com.example.cinemaapp.data.api.RetrofitClient;
+import com.example.cinemaapp.data.api.TokenManager;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,7 +21,7 @@ public class UserRepository {
     private final AuthApi authApi;
 
     public UserRepository() {
-        authApi = RetrofitClient.getInstance().create(AuthApi.class);
+        authApi = RetrofitClient.getInstanceWithoutToken().create(AuthApi.class);
     }
 
     public void register(RegisterRequest request , ApiCallback<RegisterResponse> callback){
@@ -38,18 +43,28 @@ public class UserRepository {
     }
 
     public void login(LoginRequest request, ApiCallback<LoginResponse> callback){
+        //System.out.println("Login request: " + request.getEmail() + ", " + request.getPassword() + ",");
         authApi.login(request).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Failed to login: " + response.code());
+                    try {
+                        // Lire et afficher le corps de la réponse d'erreur
+                        String errorResponse = response.errorBody() != null ? response.errorBody().string() : "No error body";
+                        System.out.println("Response body: " + errorResponse);
+                        callback.onError("Failed to login: " + response.code() + ", Error: " + errorResponse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onError("Error reading error response body: " + e.getMessage());
+                    }
                 }
             }
 
+
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 callback.onError(t.getMessage());
             }
         });

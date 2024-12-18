@@ -1,19 +1,49 @@
 package com.example.cinemaapp.data.api;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "https://your-symfony-api-url.com/";
-    private static Retrofit retrofit;
+    private static final String BASE_URL = "https://2aca-105-73-97-232.ngrok-free.app/";
+    private static Retrofit retrofitWithoutToken;
+    private static Retrofit retrofitWithToken;
 
-    public static Retrofit getInstance() {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
+    // Instance sans token
+    public static Retrofit getInstanceWithoutToken() {
+        if (retrofitWithoutToken == null) {
+            retrofitWithoutToken = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-        return retrofit;
+        return retrofitWithoutToken;
+    }
+
+    // Instance avec token
+    public static Retrofit getInstanceWithToken(TokenManager tokenManager) {
+        if (retrofitWithToken == null) {
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(chain -> {
+                        Request original = chain.request();
+                        Request.Builder requestBuilder = original.newBuilder();
+
+                        String token = tokenManager.getToken();
+                        if (token != null) {
+                            requestBuilder.addHeader("Authorization", "Bearer " + token);
+                        }
+                        Request request = requestBuilder.build();
+                        return chain.proceed(request);
+                    })
+                    .build();
+
+            retrofitWithToken = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+        }
+        return retrofitWithToken;
     }
 }

@@ -6,16 +6,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cinemaapp.R;
 import com.example.cinemaapp.data.api.LoginRequest;
+import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.data.repository.UserRepository;
+import com.example.cinemaapp.injection.UserModelFactory;
 import com.example.cinemaapp.viewmodel.UserViewModel;
 
 /**
@@ -77,20 +83,42 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        TokenManager tokenManager = TokenManager.getInstance(requireContext());
+        //TokenManager tokenManager = (requireContext());
+        userViewModel = new ViewModelProvider(this, UserModelFactory.getInstance(new UserRepository(), tokenManager)).get(UserViewModel.class);
         EditText emailEditText = view.findViewById(R.id.email_text);
         EditText passwordEditText = view.findViewById(R.id.password_text);
         Button button = view.findViewById(R.id.connect_button);
+        TextView textView = view.findViewById(R.id.register_text);
 
         button.setOnClickListener(v -> {
-            LoginRequest request = new LoginRequest();
-            request.setEmail(emailEditText.getText().toString());
-            request.setPassword(passwordEditText.getText().toString());
-            userViewModel.login(request);
+           String email = emailEditText.getText().toString().trim();
+           String password = passwordEditText.getText().toString().trim();
+
+            if (!email.isEmpty() && !password.isEmpty()) {
+                LoginRequest request = new LoginRequest();
+                request.setUsername(email);
+                request.setPassword(password);
+                userViewModel.login(request);
+            } else {
+                Toast.makeText(requireContext(), "Email and password are required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        textView.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_login_to_register);
         });
 
         userViewModel.getStatusMessage().observe(getViewLifecycleOwner(), message -> {
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            if (message.startsWith("Login successful")) {
+                // Navigation vers HomeFragment
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.action_login_to_home);
+            } else if (message.startsWith("Error")) {
+                // Afficher un message d'erreur
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+            }
         });
 
     }

@@ -9,17 +9,33 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.cinemaapp.R;
 import com.example.cinemaapp.data.model.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private List<Movie> movieList;
+    private final OnMovieClickListener listener;
 
-    public MovieAdapter(List<Movie> movieList) {
+    // Interface pour gérer les clics
+    public interface OnMovieClickListener {
+        void onMovieClick(Movie movie);
+    }
+
+    // Constructeur avec la liste de films et le listener
+    public MovieAdapter(OnMovieClickListener listener) {
+        this.movieList = new ArrayList<>();
+        this.listener = listener;
+    }
+
+    // Mettre à jour la liste des films
+    public void setMovies(List<Movie> movieList) {
         this.movieList = movieList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -32,23 +48,32 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movieList.get(position);
-        holder.title.setText(movie.getTitle());
-        holder.image.setImageResource(movie.getImageResId());
+        holder.bind(movie, listener);
+        String baseUrl = "https://2aca-105-73-97-232.ngrok-free.app/"+movie.getImage();
+        // Charger l'image avec Glide
+        Glide.with(holder.image.getContext())
+                .load(baseUrl) // Charger l'image depuis l'URL ou le chemin
+                .into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        return movieList.size();
+        return (movieList != null) ? movieList.size() : 0;
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView title;
+        private final TextView title;
+        private final ImageView image;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.movieImage);
             title = itemView.findViewById(R.id.movieTitle);
+            image = itemView.findViewById(R.id.movieImage);
+        }
+
+        public void bind(final Movie movie, final OnMovieClickListener listener) {
+            title.setText(movie.getName());
+            itemView.setOnClickListener(v -> listener.onMovieClick(movie));
         }
     }
 }
