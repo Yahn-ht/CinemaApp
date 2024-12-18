@@ -31,7 +31,15 @@ public class UserRepository {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Failed to register: " + response.code());
+                    try {
+                        // Lire et afficher le corps de la réponse d'erreur
+                        String errorResponse = response.errorBody() != null ? response.errorBody().string() : "No error body";
+                        System.out.println("Response body: " + errorResponse);
+                        callback.onError("Failed to login: " + response.code() + ", Error: " + errorResponse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onError("Error reading error response body: " + e.getMessage());
+                    }
                 }
             }
 
