@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,9 @@ public class SnackFragment extends Fragment {
     private ArrayList<SnackItem> snackItemsBoisson;
     private ArrayList<SnackItem> snackItemsChips;
     private ArrayList<SnackItem> snackItemsPop;
+    private ImageButton buttonplus;
+    private ImageButton buttonmoins;
+    private TextView nombre;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,6 +79,7 @@ public class SnackFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_snack, container, false);
 
 
@@ -84,7 +89,9 @@ public class SnackFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        buttonplus = view.findViewById(R.id.buttonplus);
+        buttonmoins= view.findViewById(R.id.buttonmoins);
+        nombre = view.findViewById(R.id.textnombre);
         gridView = view.findViewById(R.id.myGridView);
         boissonButton = view.findViewById(R.id.boisson_button);
         popButton = view.findViewById(R.id.pop_button);
@@ -103,26 +110,33 @@ public class SnackFragment extends Fragment {
             SnackItem clickedItem = snackItems.get(position);
             Toast.makeText(getContext(), "Vous avez sélectionné : " + clickedItem.getTitle(), Toast.LENGTH_SHORT).show();
         });
-
-
+        /*
+        buttonplus.setOnClickListener(v-> {
+            Toast.makeText(buttonplus.getContext(), "Image cliqué",Toast.LENGTH_SHORT).show();
+            //   String nombre4 =nombre.getText().toString();
+            //  double nombre5 = Double.parseDouble(nombre4);
+            //  double nombre6  = nombre5+1;
+            // nombre.setText(""+nombre6);
+        });
+        */
 
     }
 
         private void loadSnackData () {
 
             snackItems.clear();
-            snackItems.add(new SnackItem(R.drawable.coca_img1, "Coca", "14.5dh", "Boisson"));
-            snackItems.add(new SnackItem(R.drawable.chips_img, "Chips", "10.0dh", "Chips"));
-            snackItems.add(new SnackItem(R.drawable.popcorn_img, "Popcorn", "12.0dh", "Popcorn"));
-            snackItems.add(new SnackItem(R.drawable.coca_img1, "Coca", "14.5dh", "Boisson"));
-            snackItems.add(new SnackItem(R.drawable.chips_img, "Chips", "10.0dh", "Chips"));
-            snackItems.add(new SnackItem(R.drawable.popcorn_img, "Popcorn", "12.0dh", "Popcorn"));
-            snackItems.add(new SnackItem(R.drawable.coca_img1, "Coca", "14.5dh", "Boisson"));
-            snackItems.add(new SnackItem(R.drawable.chips_img, "Chips", "10.0dh", "Chips"));
-            snackItems.add(new SnackItem(R.drawable.popcorn_img, "Popcorn", "12.0dh", "Popcorn"));
-            snackItems.add(new SnackItem(R.drawable.coca_img1, "Coca", "14.5dh", "Boisson"));
-            snackItems.add(new SnackItem(R.drawable.chips_img, "Chips", "10.0dh", "Chips"));
-            snackItems.add(new SnackItem(R.drawable.popcorn_img, "Popcorn", "12.0dh", "Popcorn"));
+            snackItems.add(new SnackItem(R.drawable.coca, "Coca", "14.5dh", "Boisson"));
+            snackItems.add(new SnackItem(R.drawable.chips, "Chips", "10.0dh", "Chips"));
+            snackItems.add(new SnackItem(R.drawable.popcorn, "Popcorn", "12.0dh", "Popcorn"));
+            snackItems.add(new SnackItem(R.drawable.coca, "Coca", "14.5dh", "Boisson"));
+            snackItems.add(new SnackItem(R.drawable.chips, "Chips", "10.0dh", "Chips"));
+            snackItems.add(new SnackItem(R.drawable.popcorn, "Popcorn", "12.0dh", "Popcorn"));
+            snackItems.add(new SnackItem(R.drawable.coca, "Coca", "14.5dh", "Boisson"));
+            snackItems.add(new SnackItem(R.drawable.chips, "Chips", "10.0dh", "Chips"));
+            snackItems.add(new SnackItem(R.drawable.popcorn, "Popcorn", "12.0dh", "Popcorn"));
+            snackItems.add(new SnackItem(R.drawable.coca, "Coca", "14.5dh", "Boisson"));
+            snackItems.add(new SnackItem(R.drawable.chips, "Chips", "10.0dh", "Chips"));
+            snackItems.add(new SnackItem(R.drawable.popcorn, "Popcorn", "12.0dh", "Popcorn"));
             boissonButton.setOnClickListener (new View.OnClickListener() {
                 @Override
                 public void onClick(View v2) {
@@ -147,27 +161,43 @@ public class SnackFragment extends Fragment {
                     gridView.setAdapter(Popadapter);
                 }
             });
+
+
+            /*
+            buttonmoins.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String nombre4 =nombre.getText().toString();
+                    double nombre5 = Double.parseDouble(nombre4);
+                     double nombre6  = nombre5-1;
+                    nombre.setText(""+nombre6);
+                }
+            });
+            */
+
+
+
         }
     private void loadSnackDataBoisson () {
         snackItemsBoisson.clear();
-        snackItemsBoisson.add(new SnackItem(R.drawable.coca_img1, "Coca", "14.5dh", "Boisson"));
-        snackItemsBoisson.add(new SnackItem(R.drawable.coca_img1, "Popcorn", "14.5dh", "Boisson"));
-        snackItemsBoisson.add(new SnackItem(R.drawable.coca_img1, "Coca", "14.5dh", "Boisson"));
+        snackItemsBoisson.add(new SnackItem(R.drawable.coca, "Coca", "14.5dh", "Boisson"));
+        snackItemsBoisson.add(new SnackItem(R.drawable.coca, "Popcorn", "14.5dh", "Boisson"));
+        snackItemsBoisson.add(new SnackItem(R.drawable.coca, "Coca", "14.5dh", "Boisson"));
     }
     public void loadSnackDataChips () {
         snackItemsChips.clear();
-        snackItemsChips.add(new SnackItem(R.drawable.chips_img, "Coca", "10.0dh", "Chips"));
-        snackItemsChips.add(new SnackItem(R.drawable.chips_img, "Chips", "10.0dh", "Chips"));
-        snackItemsChips.add(new SnackItem(R.drawable.chips_img, "Popcorn", "10.0dh", "Chips"));
-        snackItemsChips.add(new SnackItem(R.drawable.chips_img, "Coca", "10.0dh", "Chips"));
+        snackItemsChips.add(new SnackItem(R.drawable.chips, "Coca", "10.0dh", "Chips"));
+        snackItemsChips.add(new SnackItem(R.drawable.chips, "Chips", "10.0dh", "Chips"));
+        snackItemsChips.add(new SnackItem(R.drawable.chips, "Popcorn", "10.0dh", "Chips"));
+        snackItemsChips.add(new SnackItem(R.drawable.chips, "Coca", "10.0dh", "Chips"));
     }
     private void loadSnackDataPop () {
         snackItemsPop.clear();
-        snackItemsPop.add(new SnackItem(R.drawable.popcorn_img, "Coca", "12.0dh", "Popcorn"));
-        snackItemsPop.add(new SnackItem(R.drawable.popcorn_img, "Chips", "12.0dh", "Popcorn"));
-        snackItemsPop.add(new SnackItem(R.drawable.popcorn_img, "Popcorn", "12.0dh", "Popcorn"));
-        snackItemsPop.add(new SnackItem(R.drawable.popcorn_img, "Coca", "12.0dh", "Porpcorn"));
-        snackItemsPop.add(new SnackItem(R.drawable.popcorn_img, "Chips", "12.0dh", "Popcorn"));
+        snackItemsPop.add(new SnackItem(R.drawable.popcorn, "Coca", "12.0dh", "Popcorn"));
+        snackItemsPop.add(new SnackItem(R.drawable.popcorn, "Chips", "12.0dh", "Popcorn"));
+        snackItemsPop.add(new SnackItem(R.drawable.popcorn, "Popcorn", "12.0dh", "Popcorn"));
+        snackItemsPop.add(new SnackItem(R.drawable.popcorn, "Coca", "12.0dh", "Porpcorn"));
+        snackItemsPop.add(new SnackItem(R.drawable.popcorn, "Chips", "12.0dh", "Popcorn"));
     }
 
 }

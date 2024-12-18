@@ -39,7 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Boissons"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:backgroundTint="@color/yellow"/>
 
         <Button
             android:id="@+id/pop_button"
@@ -47,7 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Pop-Corn"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:backgroundTint="@color/yellow"/>
 
         <Button
             android:id="@+id/chips_button"
@@ -55,7 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Chips"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:backgroundTint="@color/yellow"/>
     </LinearLayout>
 
     <GridView

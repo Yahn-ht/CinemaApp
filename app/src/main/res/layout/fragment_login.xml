@@ -23,7 +23,7 @@
 
         />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:background="@color/white"
         android:hint="      Email"
         />
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/password_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +55,8 @@
         android:layout_marginTop="55dp"
         android:text="J'accepte les roles et privacy"
         android:textColor="@color/white"
-        android:checked="true"/>
+        android:checked="true"
+        android:backgroundTint="@color/yellow"/>
 
     <Button
         android:id="@+id/connect_button"
@@ -65,7 +66,7 @@
         android:width="265dp"
         android:text="Connexion"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/button_style"/>
+        android:backgroundTint="@color/yellow"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
