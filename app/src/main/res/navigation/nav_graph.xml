@@ -28,6 +28,16 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.cinemaapp.ui.home.HomeFragment"
-        android:label="Home" />
+        android:label="Home">
+        <action
+            android:id="@+id/home_to_movie_fragment"
+            app:destination="@id/movieFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.example.cinemaapp.ui.movie.MovieFragment"
+        android:label="Movie" />
+
 
 </navigation>

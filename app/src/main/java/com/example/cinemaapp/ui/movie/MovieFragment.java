@@ -2,13 +2,19 @@ package com.example.cinemaapp.ui.movie;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.data.model.Movie;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +68,27 @@ public class MovieFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movie, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ImageView imageView = view.findViewById(R.id.imagePoster);
+        TextView  textView = view.findViewById(R.id.textTitle);
+
+        if (getArguments() != null) {
+            Movie movie = (Movie) getArguments().getSerializable("movie_key");
+            if (movie != null) {
+                String baseUrl = "https://2aca-105-73-97-232.ngrok-free.app/"+movie.getImage();
+                Glide.with(getContext())
+                        .load(baseUrl)
+                        //.placeholder(R.drawable.placeholder_image) // Image temporaire en attendant le chargement
+                        //.error(R.drawable.error_image)
+                        .into(imageView);
+                textView.setText(movie.getName());
+
+                // Autres éléments : description, image avec Glide/Picasso, etc.
+            }
+        }
     }
 }

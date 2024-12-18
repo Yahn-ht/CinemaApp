@@ -3,15 +3,13 @@ package com.example.cinemaapp.data.api;
 public class RegisterRequest {
     private String email;
     private String password;
-    private String firstName;
-    private String lastName;
+    private  String name;
 
 
-    public RegisterRequest(String email, String password, String firstName, String lastName) {
+    public RegisterRequest(String email, String password, String name) {
         this.email = email;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
 
     public String getEmail() {
@@ -22,11 +20,19 @@ public class RegisterRequest {
         return password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

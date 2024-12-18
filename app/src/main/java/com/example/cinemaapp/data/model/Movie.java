@@ -1,8 +1,15 @@
 package com.example.cinemaapp.data.model;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import com.example.cinemaapp.R;
+import com.example.cinemaapp.adapter.MovieAdapter;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
     private int id;
     private String name;
     private String duree;
@@ -99,4 +106,6 @@ public class Movie {
     public void setSupp(boolean supp) {
         isSupp = supp;
     }
+
+
 }

@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -101,7 +103,11 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         MovieAdapter adapter = new MovieAdapter(movie -> {
-            Toast.makeText(requireContext(), "Movie clicked:", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(requireContext(), "Movie clicked:", Toast.LENGTH_SHORT).show();
+            NavController navController = Navigation.findNavController(view);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("movie_key", movie);
+            navController.navigate(R.id.movieFragment,bundle);
         });
         recyclerView.setAdapter(adapter);
 
