@@ -104,7 +104,7 @@ public class SnackFragment extends Fragment {
         });
 
 
-        return view;
+       // return view;
     }
 
         private void loadSnackData () {
