@@ -16,6 +16,7 @@ public class MovieViewModel extends ViewModel {
     private final MutableLiveData<List<Movie>> moviesLiveData = new MutableLiveData<>();
     private final MutableLiveData<Movie> movieDetailsLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Movie> firstMovieLiveData = new MutableLiveData<>();
 
     public MovieViewModel(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
@@ -23,6 +24,10 @@ public class MovieViewModel extends ViewModel {
 
     public LiveData<List<Movie>> getMovies() {
         return moviesLiveData;
+    }
+
+    public LiveData<Movie> getFirstMovie() {
+        return firstMovieLiveData;
     }
 
     public LiveData<Movie> getMovieDetails() {
@@ -37,6 +42,7 @@ public class MovieViewModel extends ViewModel {
         movieRepository.getMovies(new ApiCallback<List<Movie>>() {
             @Override
             public void onSuccess(List<Movie> movies) {
+                firstMovieLiveData.setValue(movies.get(movies.size()-1));
                 moviesLiveData.setValue(movies);
             }
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.data.api.BaseUrl;
 import com.example.cinemaapp.data.model.Movie;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movieList.get(position);
         holder.bind(movie, listener);
-        String baseUrl = "https://2aca-105-73-97-232.ngrok-free.app/"+movie.getImage();
+        String baseUrl = BaseUrl.BASE_URL+movie.getImage();
         // Charger l'image avec Glide
         Glide.with(holder.image.getContext())
                 .load(baseUrl) // Charger l'image depuis l'URL ou le chemin
