@@ -158,5 +158,6 @@ public class HomeFragment extends Fragment {
             // Afficher un message d'erreur
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
         });
+        return view;
     }
 }

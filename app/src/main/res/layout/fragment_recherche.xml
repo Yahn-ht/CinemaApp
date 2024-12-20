@@ -2,14 +2,35 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/searchFragment"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_vertical"
     tools:context=".ui.recherche.RechercheFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:hint="Rechercher"
+        android:inputType="text"
+        android:padding="8dp"
+        android:backgroundTint="@color/gray"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginTop="50dp"  />
+    <ImageButton
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="57dp"
+        android:src="@drawable/chercher1"
+        android:background="@color/gray"
+        />
+    <ListView
+        android:id="@+id/listView"
+        android:layout_marginTop="150dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Voici la recherche" />
+        android:layout_height="wrap_content"/>
 
 </FrameLayout>

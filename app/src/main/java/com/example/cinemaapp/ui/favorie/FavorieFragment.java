@@ -2,13 +2,24 @@ package com.example.cinemaapp.ui.favorie;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.adapter.FavorieAdapter;
+import com.example.cinemaapp.ui.favorie.FavorieItem;
+import com.example.cinemaapp.ui.snack.SnackItem;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +36,7 @@ public class FavorieFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<FavorieItem> FavorieItems;
     public FavorieFragment() {
         // Required empty public constructor
     }
@@ -63,4 +74,34 @@ public class FavorieFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favorie, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ArrayList<FavorieItem> FavorieItems = new ArrayList<>();
+        ListView MyListView = view.findViewById(R.id.myListView);
+        loadFavorieData();
+
+        FavorieAdapter adapter = new FavorieAdapter(getContext(), FavorieItems);
+        MyListView.setAdapter(adapter);
+
+        MyListView.setOnItemClickListener((AdapterView<?> parent, View view1, int position, long id) -> {
+            FavorieItem clickedItem = FavorieItems.get(position);
+            Toast.makeText(getContext(), "Vous avez sélectionné : " + clickedItem.getTitle(), Toast.LENGTH_SHORT).show();
+        });
+
+
+      //  return view;
+    }
+
+    private void loadFavorieData () {
+
+        FavorieItems.clear();
+        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
+        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
+        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
+        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
+        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
+    }
+
 }
