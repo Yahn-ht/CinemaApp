@@ -68,7 +68,10 @@
         android:name="com.example.cinemaapp.ui.recherche.RechercheFragment"
         android:label="Recherche" />
 
-
+    <fragment
+        android:id="@id/favoriteFragment"
+        android:name="com.example.cinemaapp.ui.favorie.FavorieFragment"
+        android:label="Favoris" />
 
 
 

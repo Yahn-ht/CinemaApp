@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.profileFragment);
             } else if (item.getItemId() == R.id.nav_favorite) {
+                Toast.makeText(this, "Favorie", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.favoriteFragment);
             }
             return true;

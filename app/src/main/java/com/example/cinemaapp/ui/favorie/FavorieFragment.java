@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,7 @@ public class FavorieFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<FavorieItem> FavorieItems;
+    private ArrayList<FavorieItem> FavorieItems = new ArrayList<>();
     public FavorieFragment() {
         // Required empty public constructor
     }
@@ -78,7 +79,6 @@ public class FavorieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayList<FavorieItem> FavorieItems = new ArrayList<>();
         ListView MyListView = view.findViewById(R.id.myListView);
         loadFavorieData();
 
@@ -91,12 +91,12 @@ public class FavorieFragment extends Fragment {
         });
 
 
+
+
       //  return view;
     }
 
     private void loadFavorieData () {
-
-        FavorieItems.clear();
         FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
         FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
         FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
