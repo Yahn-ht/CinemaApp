@@ -27,7 +27,7 @@ public class UserRepository {
     public void register(RegisterRequest request , ApiCallback<RegisterResponse> callback){
         authApi.register(request).enqueue(new Callback<RegisterResponse>() {
             @Override
-            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+            public void onResponse(@NonNull Call<RegisterResponse> call, @NonNull Response<RegisterResponse> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.body());
                 } else {

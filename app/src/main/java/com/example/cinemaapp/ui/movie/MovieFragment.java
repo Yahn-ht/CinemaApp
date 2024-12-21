@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.cinemaapp.R;
 import com.example.cinemaapp.data.api.BaseUrl;
+import com.example.cinemaapp.data.api.TokenManager;
 import com.example.cinemaapp.data.model.Movie;
 import com.example.cinemaapp.data.model.Session;
+import com.example.cinemaapp.data.repository.MovieRepository;
+import com.example.cinemaapp.injection.MovieModelFactory;
+import com.example.cinemaapp.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +47,10 @@ public class MovieFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ImageView favoriteIcon;
+    private boolean isFavorite = false; // Initialement non favori
+    private MovieViewModel movieViewModel;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -93,12 +102,19 @@ public class MovieFragment extends Fragment {
         TextView  description = view.findViewById(R.id.description);
         Button button = view.findViewById(R.id.connect_button);
 
+        favoriteIcon = view.findViewById(R.id.favorite);
+
         Spinner spinner = view.findViewById(R.id.spinner);
 
         List<SpinnerItem> spinnerItems = new ArrayList<>();
         List<Session> sessions= new ArrayList<>();
 
-        if (getArguments() != null) {
+        TokenManager tokenManager = TokenManager.getInstance(requireContext());
+        MovieRepository movieRepository = new MovieRepository(tokenManager);
+        MovieModelFactory factory = new MovieModelFactory(movieRepository);
+        movieViewModel = new ViewModelProvider(this, factory).get(MovieViewModel.class);
+
+
             Movie movie = (Movie) getArguments().getSerializable("movie_key");
             if (movie != null) {
                 for(Session session : movie.getSession()){
@@ -128,7 +144,7 @@ public class MovieFragment extends Fragment {
                 auteur.setText(movie.getAuthorName());
                 description.setText(movie.getDescription());
             }
-        }
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -149,6 +165,26 @@ public class MovieFragment extends Fragment {
             }
         });
 
+        favoriteIcon.setOnClickListener(v -> {
+            if (isFavorite) {
+                movieViewModel.removeFavoriteMovie(movie.getId());
+                Toast.makeText(getContext(), "Supprimé des favoris", Toast.LENGTH_SHORT).show();
+            } else {
+                movieViewModel.addFavoriteMovie(movie.getId());
+                Toast.makeText(getContext(), "Ajouté aux favoris", Toast.LENGTH_SHORT).show();
+            }
+            isFavorite = !isFavorite;
+            updateFavoriteIcon();
+        });
 
+
+    }
+
+    private void updateFavoriteIcon() {
+        if (isFavorite) {
+            favoriteIcon.setImageResource(R.drawable.heartfav); // Icône de favori
+        } else {
+            favoriteIcon.setImageResource(R.drawable.notfav); // Icône de non favori
+        }
     }
 }

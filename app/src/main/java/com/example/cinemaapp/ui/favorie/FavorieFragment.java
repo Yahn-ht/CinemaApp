@@ -1,107 +1,122 @@
 package com.example.cinemaapp.ui.favorie;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.cinemaapp.R;
-import com.example.cinemaapp.adapter.FavorieAdapter;
-import com.example.cinemaapp.ui.favorie.FavorieItem;
-import com.example.cinemaapp.ui.snack.SnackItem;
+import com.example.cinemaapp.adapter.FavoriteMoviesAdapter;
+import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.data.model.Movie;
+import com.example.cinemaapp.data.repository.MovieRepository;
+import com.example.cinemaapp.injection.MovieModelFactory;
+import com.example.cinemaapp.viewmodel.MovieViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavorieFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FavorieFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private ArrayList<FavorieItem> FavorieItems = new ArrayList<>();
-    public FavorieFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavorieFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavorieFragment newInstance(String param1, String param2) {
-        FavorieFragment fragment = new FavorieFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private MovieViewModel movieViewModel;
+    private ListView listView;
+    private TextView emptyView; // Vue pour afficher un message si la liste est vide
+    private FavoriteMoviesAdapter adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_favorie, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ListView MyListView = view.findViewById(R.id.myListView);
-        loadFavorieData();
 
-        FavorieAdapter adapter = new FavorieAdapter(getContext(), FavorieItems);
-        MyListView.setAdapter(adapter);
+        listView = view.findViewById(R.id.myListView);
+        emptyView = view.findViewById(R.id.isEmpty); // Assurez-vous que cette vue est présente dans le layout XML
 
-        MyListView.setOnItemClickListener((AdapterView<?> parent, View view1, int position, long id) -> {
-            FavorieItem clickedItem = FavorieItems.get(position);
-            Toast.makeText(getContext(), "Vous avez sélectionné : " + clickedItem.getTitle(), Toast.LENGTH_SHORT).show();
+        // Initialisation de TokenManager et MovieRepository
+        TokenManager tokenManager = TokenManager.getInstance(requireContext());
+        if (tokenManager == null) {
+            Toast.makeText(requireContext(), "Erreur d'authentification", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        MovieRepository movieRepository = new MovieRepository(tokenManager);
+
+        // Configuration de ViewModel
+        MovieModelFactory factory = new MovieModelFactory(movieRepository);
+        movieViewModel = new ViewModelProvider(this, factory).get(MovieViewModel.class);
+
+        // Observateurs pour les favoris
+        movieViewModel.getFavoriteMovies().observe(getViewLifecycleOwner(), this::updateFavorites);
+
+        // Observateurs pour les messages
+        movieViewModel.getSuccessMessage().observe(getViewLifecycleOwner(), message -> {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
         });
 
+        movieViewModel.getError().observe(getViewLifecycleOwner(), errorMessage -> {
+            Toast.makeText(requireContext(), "Erreur : " + errorMessage, Toast.LENGTH_SHORT).show();
+        });
 
+        // Charger les favoris
+        movieViewModel.loadFavoriteMovies();
 
+        // Gestion des clics
+        listView.setOnItemClickListener((parent, clickedView, position, id) -> {
+            Movie selectedMovie = adapter.getItem(position);
+            if (selectedMovie != null) {
+//                Toast.makeText(requireContext(), "Film sélectionné : " + selectedMovie.getName(), Toast.LENGTH_SHORT).show();
+                NavController navController = Navigation.findNavController(view);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("movie_key", selectedMovie);
+                navController.navigate(R.id.movieFragment,bundle);
+            }
+        });
 
-      //  return view;
+        listView.setOnItemLongClickListener((parent, clickedView, position, id) -> {
+            Movie selectedMovie = adapter.getItem(position);
+            if (selectedMovie != null) {
+                movieViewModel.removeFavoriteMovie(selectedMovie.getId());
+            }
+            return true;
+        });
     }
 
-    private void loadFavorieData () {
-        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
-        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
-        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
-        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
-        FavorieItems.add(new FavorieItem(R.drawable.img,R.drawable.fav1,"L'ombre et le prone"," Un beau film","Cinema Paris Oujda"));
+    private void updateFavorites(List<Movie> favoriteMovies) {
+        if (favoriteMovies != null && !favoriteMovies.isEmpty()) {
+            emptyView.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+            if (adapter == null) {
+                adapter = new FavoriteMoviesAdapter(requireContext(),favoriteMovies,this::onMovieItemClick);
+                listView.setAdapter(adapter);
+            } else {
+                adapter.clear();
+                adapter.addAll(favoriteMovies);
+                adapter.notifyDataSetChanged();
+            }
+        } else {
+            emptyView.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        }
+    }
+
+    public void onMovieItemClick(Movie selectedMovie) {
+        // Gérer l'action lors du clic sur un élément de la liste
+        Toast.makeText(requireContext(), "Film sélectionné : " + selectedMovie.getName(), Toast.LENGTH_SHORT).show();
+        NavController navController = Navigation.findNavController(requireView());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("movie_key", selectedMovie);
+        navController.navigate(R.id.movieFragment, bundle);
     }
 
 }
