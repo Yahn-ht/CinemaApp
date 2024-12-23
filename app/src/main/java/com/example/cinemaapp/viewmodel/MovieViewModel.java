@@ -1,5 +1,8 @@
 package com.example.cinemaapp.viewmodel;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -24,6 +27,12 @@ public class MovieViewModel extends ViewModel {
     private final MutableLiveData<List<Movie>> favoriteMoviesLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> successMessageLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
+    //  LiveData pour la recherche
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final MutableLiveData<List<Movie>> searchResultsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> errorSearchLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLoadingLiveData = new MutableLiveData<>();
+    private Runnable searchRunnable;
 
     public MovieViewModel(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
@@ -53,6 +62,16 @@ public class MovieViewModel extends ViewModel {
 
     public LiveData<String> getSuccessMessage() {
         return successMessageLiveData;
+    }
+    //Getters pour la recherche
+    public LiveData<List<Movie>> getSearchResults() {
+        return searchResultsLiveData;
+    }
+    public LiveData<String> getSearchError() {
+        return errorSearchLiveData;
+    }
+    public LiveData<Boolean> getIsLoading() {
+        return isLoadingLiveData;
     }
 
     // Charger tous les films
@@ -137,4 +156,29 @@ public class MovieViewModel extends ViewModel {
         List<Movie> currentFavorites = favoriteMoviesLiveData.getValue();
         return currentFavorites != null && currentFavorites.contains(movie);
     }
-}
+
+        // Méthode pour rechercher avec latence
+        public void searchMoviesWithDelay(String searchKey, int page, int limit) {
+            if (searchRunnable != null) {
+                handler.removeCallbacks(searchRunnable);
+            }
+
+            searchRunnable = () -> {
+                isLoadingLiveData.setValue(true);
+                movieRepository.searchMovies(searchKey, page, limit, new ApiCallback<List<Movie>>() {
+                    @Override
+                    public void onSuccess(List<Movie> movies) {
+                        isLoadingLiveData.setValue(false);
+                        searchResultsLiveData.setValue(movies);
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        isLoadingLiveData.setValue(false);
+                        errorLiveData.setValue(errorMessage);
+                    }
+                });
+            };
+            handler.postDelayed(searchRunnable, 2000); // 2 secondes de délai
+        }
+    }

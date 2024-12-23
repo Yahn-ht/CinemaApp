@@ -1,9 +1,10 @@
 package com.example.cinemaapp.data.api;
 
+
 import com.example.cinemaapp.data.model.Movie;
 
 import java.util.List;
-
+import retrofit2.http.Query;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -26,4 +27,11 @@ public interface MovieApi {
 
     @POST("/api/favoryRemove/{id}")
     Call<FavResponse> deleteFavMovie(@Path("id") int movieId);
+
+    @GET("/api/movies/search")
+    Call<List<Movie>> searchMovies(
+                @Query("searchKey") String searchKey,
+                @Query("page") int page,
+                @Query("limit") int limit
+    );
 }

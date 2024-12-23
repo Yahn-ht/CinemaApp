@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.mediarouter)
     implementation(libs.navigation.runtime)
+    implementation(libs.contentpager)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

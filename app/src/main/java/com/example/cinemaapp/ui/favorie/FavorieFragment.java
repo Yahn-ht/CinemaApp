@@ -97,7 +97,7 @@ public class FavorieFragment extends Fragment {
             emptyView.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             if (adapter == null) {
-                adapter = new FavoriteMoviesAdapter(requireContext(),favoriteMovies,this::onMovieItemClick);
+                adapter = new FavoriteMoviesAdapter(requireContext(),favoriteMovies, this::onMovieItemClick);
                 listView.setAdapter(adapter);
             } else {
                 adapter.clear();

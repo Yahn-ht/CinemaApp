@@ -105,31 +105,58 @@ public class MovieRepository {
         });
     }
 
-        public void deleteFavMovie(int movieId, ApiCallback<FavResponse> callback) {
-            movieApi.deleteFavMovie(movieId).enqueue(new Callback<FavResponse>() {
-                @Override
-                public void onResponse(@NonNull Call<FavResponse> call, @NonNull Response<FavResponse> response) {
-                    if (response.isSuccessful()) {
-                        callback.onSuccess(response.body());
-                    } else {
-                        try {
-                            // Lire et afficher le corps de la réponse d'erreur
-                            String errorResponse = response.errorBody() != null ? response.errorBody().string() : "No error body";
-                            System.out.println("Response body: " + errorResponse);
-                            callback.onError("Failed to login: " + response.code() + ", Error: " + errorResponse);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            callback.onError("Error reading error response body: " + e.getMessage());
-                        }
+    public void deleteFavMovie(int movieId, ApiCallback<FavResponse> callback) {
+        movieApi.deleteFavMovie(movieId).enqueue(new Callback<FavResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<FavResponse> call, @NonNull Response<FavResponse> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    try {
+                        // Lire et afficher le corps de la réponse d'erreur
+                        String errorResponse = response.errorBody() != null ? response.errorBody().string() : "No error body";
+                        System.out.println("Response body: " + errorResponse);
+                        callback.onError("Failed to login: " + response.code() + ", Error: " + errorResponse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onError("Error reading error response body: " + e.getMessage());
                     }
                 }
+            }
 
-                @Override
-                public void onFailure(@NonNull Call<FavResponse> call, @NonNull Throwable t) {
-                    callback.onError(t.getMessage());
+            @Override
+            public void onFailure(@NonNull Call<FavResponse> call, @NonNull Throwable t) {
+                callback.onError(t.getMessage());
+            }
+        });
+    }
+
+    // Méthode pour rechercher des films
+    public void searchMovies(String searchKey, int page, int limit, ApiCallback<List<Movie>> callback) {
+        movieApi.searchMovies(searchKey, page, limit).enqueue(new Callback<List<Movie>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Movie>> call, @NonNull Response<List<Movie>> response) {
+                if (response.isSuccessful()) {
+                    // Succès : retourne la liste des films
+                    callback.onSuccess(response.body());
+                } else {
+                    try {
+                        // Lire le corps de la réponse en cas d'erreur
+                        String errorResponse = response.errorBody() != null ? response.errorBody().string() : "No error body";
+                        System.out.println("Error body: " + errorResponse);
+                        callback.onError("Failed to fetch movies: " + response.code() + ", Error: " + errorResponse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onError("Error reading error response body: " + e.getMessage());
+                    }
                 }
+            }
 
-            });
-
+            @Override
+            public void onFailure(@NonNull Call<List<Movie>> call, @NonNull Throwable t) {
+                // Échec de la requête
+                callback.onError("Failed to connect: " + t.getMessage());
+            }
+        });
     }
 }

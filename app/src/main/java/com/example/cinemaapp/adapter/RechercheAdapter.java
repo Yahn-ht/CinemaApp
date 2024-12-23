@@ -9,54 +9,47 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cinemaapp.R;
-import com.example.cinemaapp.ui.recherche.RechercheItem;
+import com.example.cinemaapp.data.model.Movie;
 
 import java.util.List;
 
-    public class RechercheAdapter extends BaseAdapter {
+public class RechercheAdapter extends android.widget.ArrayAdapter<Movie> {
 
-        private final Context context;
-        private final List<RechercheItem> RechercheItems;
+    private final Context context;
+    private final List<Movie> movies;
+    private final OnMovieClickListener listener;
 
-        public RechercheAdapter(Context context, List<RechercheItem> RechercheItems) {
-            this.context = context;
-            this.RechercheItems = RechercheItems;
-        }
-
-        @Override
-        public int getCount() {
-            return RechercheItems.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return RechercheItems.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.recherche_item, parent, false);
-            }
-
-            RechercheItem currentItem = RechercheItems.get(position);
-
-            ImageView itemImage = convertView.findViewById(R.id.itemImage);
-            TextView title = convertView.findViewById(R.id.title);
-            TextView MovieDescription = convertView.findViewById(R.id.movieDescription);
-
-            itemImage.setImageResource(currentItem.getImageResId());
-            title.setText(currentItem.getTitle());
-            MovieDescription.setText(currentItem.getDescription());
-
-            return convertView;
-        }
+    public RechercheAdapter(Context context, List<Movie> movies, OnMovieClickListener listener) {
+        super(context, R.layout.recherche_item, movies);
+        this.context = context;
+        this.movies = movies;
+        this.listener = listener;
     }
 
+    public interface OnMovieClickListener {
+        void onMovieItemClick(Movie selectedMovie);  // Méthode pour gérer le clic sur un film
+    }
 
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.recherche_item, parent, false);
+        }
+
+        Movie currentMovie = movies.get(position);
+
+        ImageView movieImage = convertView.findViewById(R.id.itemImage);
+        TextView title = convertView.findViewById(R.id.title);
+        TextView description = convertView.findViewById(R.id.movieDescription);
+
+        // Afficher l'image du film (vous pouvez ajuster en fonction de l'URL ou du resource ID)
+        movieImage.setImageResource(R.drawable.img); // Ajustez en fonction de vos données
+
+        title.setText(currentMovie.getName());
+        description.setText(currentMovie.getDescription());
+        // Gérer le clic sur l'élément pour ouvrir les détails du film
+        convertView.setOnClickListener(v -> listener.onMovieItemClick(currentMovie));
+
+        return convertView;
+    }
+}
