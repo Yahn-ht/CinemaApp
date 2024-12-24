@@ -4,11 +4,13 @@ public class SpinnerItem {
     private int movieId;
     private int sessionId;
     private String displayText;
+    private int salleId;
 
-    public SpinnerItem(int movieId, int sessionId, String displayText) {
+    public SpinnerItem(int movieId, int sessionId, String displayText, int salleId) {
         this.movieId = movieId;
         this.sessionId = sessionId;
         this.displayText = displayText;
+        this.salleId = salleId;
     }
 
     public int getMovieId() {
@@ -21,6 +23,10 @@ public class SpinnerItem {
 
     public String getDisplayText() {
         return displayText;
+    }
+
+    public int getSalleId() {
+        return salleId;
     }
 
     @Override

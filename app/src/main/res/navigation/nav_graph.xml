@@ -73,5 +73,16 @@
         android:name="com.example.cinemaapp.ui.favorie.FavorieFragment"
         android:label="Favoris" />
 
+    <fragment
+        android:id="@+id/salleFragment"
+        android:name="com.example.cinemaapp.ui.salle.SalleFragment"
+        android:label="Salle" />
+
+    <fragment
+        android:id="@+id/snackFragment"
+        android:name="com.example.cinemaapp.ui.snack.SnackFragment"
+        android:label="Snack" />
+
+
 
 </navigation>

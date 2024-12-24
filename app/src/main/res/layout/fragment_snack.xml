@@ -38,6 +38,7 @@
             android:id="@+id/boisson_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/yellow"
             android:text="Boissons"
             android:textSize="10sp" />
 
@@ -45,6 +46,7 @@
             android:id="@+id/pop_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/yellow"
             android:layout_marginStart="20dp"
             android:text="Pop-Corn"
             android:textSize="10sp" />
@@ -52,6 +54,7 @@
         <Button
             android:id="@+id/chips_button"
             android:layout_width="wrap_content"
+            android:backgroundTint="@color/yellow"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Chips"
@@ -63,9 +66,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="30dp"
         android:horizontalSpacing="30dp"
         android:numColumns="2"
         android:verticalSpacing="100dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/valider_button"
+        android:layout_marginHorizontal="50dp"
+        style="@style/MyCustomButtonStyle"
+        android:textColor="@color/black"
+        android:text="Valider votre reservation"/>
 
 </LinearLayout>
