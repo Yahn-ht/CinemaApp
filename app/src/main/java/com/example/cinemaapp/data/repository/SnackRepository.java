@@ -19,7 +19,7 @@ public class SnackRepository {
     private TokenManager tokenManager;
     private final SnackApi snackApi;
 
-    public SnackRepository() {
+    public SnackRepository(TokenManager tokenManager) {
         snackApi = RetrofitClient.getInstanceWithToken(tokenManager).create(SnackApi.class);
     }
 

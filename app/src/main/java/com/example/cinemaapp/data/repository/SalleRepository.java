@@ -17,10 +17,8 @@ public class SalleRepository {
     private final SalleApi salleApi;
     private TokenManager tokenManager;
 
-    public SalleRepository() {
-        this.tokenManager = tokenManager;
+    public SalleRepository(TokenManager tokenManager) {
         salleApi = RetrofitClient.getInstanceWithToken(tokenManager).create(SalleApi.class);
-
     }
 
     public LiveData<SalleResponse> getRoomById(int roomId) {

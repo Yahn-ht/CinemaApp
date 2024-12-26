@@ -19,8 +19,8 @@ public class SnackViewModel extends ViewModel {
     private final MutableLiveData<List<Snack>> filteredSnacks = new MutableLiveData<>();
     private final Map<Integer, Integer> selectedSnacks = new HashMap<>();
 
-    public SnackViewModel() {
-        snackRepository = new SnackRepository();
+    public SnackViewModel(SnackRepository snackRepository) {
+        this.snackRepository = snackRepository;
         fetchSnacks();
     }
 

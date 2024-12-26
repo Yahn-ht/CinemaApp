@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialisation des composants
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //FloatingActionButton fabCentral = findViewById(R.id.fab_central);
-        TokenManager tokenManager = TokenManager.getInstance(this);
+        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext());
 
         // Récupérer NavController à partir du NavHostFragment
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()

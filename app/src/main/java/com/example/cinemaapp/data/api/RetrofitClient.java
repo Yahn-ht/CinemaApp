@@ -23,16 +23,25 @@ public class RetrofitClient {
 
     // Instance avec token
     public static Retrofit getInstanceWithToken(TokenManager tokenManager) {
+        if (tokenManager == null) {
+            throw new IllegalArgumentException("TokenManager cannot be null");
+        }
+
         if (retrofitWithToken == null) {
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(chain -> {
                         Request original = chain.request();
                         Request.Builder requestBuilder = original.newBuilder();
 
+                        // Récupération du token
                         String token = tokenManager.getToken();
                         if (token != null) {
                             requestBuilder.addHeader("Authorization", "Bearer " + token);
+                        } else {
+                            // Ajout d'un log pour le débogage
+                            System.out.println("Token is null. Authorization header not added.");
                         }
+
                         Request request = requestBuilder.build();
                         return chain.proceed(request);
                     })
@@ -44,6 +53,8 @@ public class RetrofitClient {
                     .client(client)
                     .build();
         }
+
         return retrofitWithToken;
     }
+
 }

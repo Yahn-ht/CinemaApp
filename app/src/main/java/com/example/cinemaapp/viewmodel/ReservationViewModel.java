@@ -12,8 +12,8 @@ public class ReservationViewModel extends ViewModel {
     private final ReservationRepository repository;
     private final MutableLiveData<ReservationResponse> reservationResponse = new MutableLiveData<>();
 
-    public ReservationViewModel() {
-        this.repository = new ReservationRepository();
+    public ReservationViewModel(ReservationRepository repository) {
+        this.repository = repository;
     }
 
     public LiveData<ReservationResponse> getReservationResponse() {

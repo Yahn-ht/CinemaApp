@@ -1,6 +1,8 @@
 package com.example.cinemaapp.data.model;
 
-public class Salle {
+import java.io.Serializable;
+
+public class Salle implements Serializable {
     private int id;
     private int numero;
     private int nbrePlace;

@@ -13,19 +13,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemaapp.R;
 import com.example.cinemaapp.adapter.SnackAdapter;
 import com.example.cinemaapp.data.api.ReservationRequest;
-import com.example.cinemaapp.data.repository.ReservationRepository;
 import com.example.cinemaapp.viewmodel.ReservationViewModel;
-import com.example.cinemaapp.viewmodel.SalleViewModel;
 import com.example.cinemaapp.viewmodel.SnackViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class SnackFragment extends Fragment {

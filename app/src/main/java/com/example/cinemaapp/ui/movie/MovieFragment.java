@@ -1,5 +1,6 @@
 package com.example.cinemaapp.ui.movie;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.example.cinemaapp.data.model.Movie;
 import com.example.cinemaapp.data.model.Session;
 import com.example.cinemaapp.data.repository.MovieRepository;
 import com.example.cinemaapp.injection.MovieModelFactory;
+import com.example.cinemaapp.ui.salle.SalleActivity;
 import com.example.cinemaapp.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
@@ -159,10 +161,14 @@ public class MovieFragment extends Fragment {
                 ReservationRequest reservationRequest = new ReservationRequest();
                 reservationRequest.setMovie(movieId);
                 reservationRequest.setSession(sessionId);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("reservationRequest", reservationRequest);
-                bundle.putInt("roomId", salleId);
-                Navigation.findNavController(view).navigate(R.id.salleFragment, bundle);
+                //Bundle bundle = new Bundle();
+                //bundle.putSerializable("reservationRequest", reservationRequest);
+                //bundle.putInt("roomId", salleId);
+                Intent intent = new Intent(getContext(), SalleActivity.class);
+                intent.putExtra("reservationRequest", reservationRequest);
+                intent.putExtra("roomId", salleId);
+                startActivity(intent);
+                //Navigation.findNavController(view).navigate(R.id.salleFragment, bundle);
             } else {
                 Toast.makeText(getContext(), "Veuillez sélectionner une session", Toast.LENGTH_SHORT).show();
             }

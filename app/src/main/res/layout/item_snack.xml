@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:background="@color/black"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivSnackImage"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/popcorn_img"
+                 />
+
+            <TextView
+                android:id="@+id/tvSnackName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Popcorn"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvSnackQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x3"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvSnackPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20Dh"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>

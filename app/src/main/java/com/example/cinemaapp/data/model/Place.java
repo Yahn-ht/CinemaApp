@@ -4,9 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.example.cinemaapp.data.api.salles.MovieResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Place {
+public class Place{
     private int id;
     private int numero;
     private List<Session> reserver;

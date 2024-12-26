@@ -3,6 +3,7 @@ package com.example.cinemaapp.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.cinemaapp.data.api.TokenManager;
 import com.example.cinemaapp.data.api.salles.SalleResponse;
 import com.example.cinemaapp.data.model.Place;
 import com.example.cinemaapp.data.repository.SalleRepository;
@@ -12,8 +13,8 @@ import java.util.List;
 public class SalleViewModel extends ViewModel {
     private final SalleRepository roomRepository;
 
-    public SalleViewModel() {
-        roomRepository = new SalleRepository();
+    public SalleViewModel(SalleRepository roomRepository) {
+        this.roomRepository = roomRepository;
     }
 
     public LiveData<SalleResponse> getRoomById(int roomId) {
