@@ -23,6 +23,7 @@
             <!-- Titre -->
             <TextView
                 android:id="@+id/tvTitle"
+                android:fontFamily="@font/poppins_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Détails de la réservation"
@@ -34,6 +35,7 @@
             <!-- Montant total -->
             <TextView
                 android:id="@+id/tvTotalAmount"
+                android:fontFamily="@font/poppins_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Montant total : 270€"
@@ -46,6 +48,7 @@
                 android:id="@+id/tvPlacesTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="Places réservées"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -73,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:text="Snacks commandés"
                     android:textSize="20sp"
+                    android:fontFamily="@font/poppins_bold"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp"
                     android:textColor="@color/white" />
@@ -90,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Film réservé :"
+                android:fontFamily="@font/poppins_semibold"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/white" />
@@ -98,6 +103,7 @@
                 android:id="@+id/tvMovieName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
                 android:text="Young Sheldon"
                 android:textSize="16sp"
                 android:layout_marginTop="4dp"

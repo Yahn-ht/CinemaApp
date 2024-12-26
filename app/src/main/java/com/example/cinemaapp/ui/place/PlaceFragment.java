@@ -1,66 +1,119 @@
-package com.example.cinemaapp.ui.place;
-
+package com.example.cinemaapp.ui.place
+;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.cinemaapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PlaceFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PlaceFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final int ROWS = 5; // Nombre de rangées
+    private static final int COLUMNS = 4; // Nombre de colonnes
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private enum SeatState {
+        AVAILABLE,
+        RESERVED,
+        UNAVAILABLE
+    }
 
     public PlaceFragment() {
-        // Required empty public constructor
+        // Constructeur public vide requis pour les fragments
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PlaceFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PlaceFragment newInstance(String param1, String param2) {
-        PlaceFragment fragment = new PlaceFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Inflater le layout pour ce fragment
+        View rootView = inflater.inflate(R.layout.fragment_place, container, false);
+
+        GridLayout gridLayout = rootView.findViewById(R.id.GridLayout);
+
+        // Images associées aux états des sièges
+        int availableSeatImage = R.drawable.chair_dispo; // Image pour disponible
+        int reservedSeatImage = R.drawable.chair_checked;   // Image pour réservé
+        int unavailableSeatImage = R.drawable.img; // Image pour non disponible
+
+        // Matrice pour représenter les états initiaux des sièges
+        SeatState[][] seatStates = new SeatState[ROWS][COLUMNS];
+
+        // Initialiser les états (modifiable en fonction de vos données)
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLUMNS; col++) {
+                if (row == 0 && col < 2) {
+                    seatStates[row][col] = SeatState.UNAVAILABLE; // Non disponible
+                } else if (row == 1 && col == 3) {
+                    seatStates[row][col] = SeatState.RESERVED; // Réservé
+                } else {
+                    seatStates[row][col] = SeatState.AVAILABLE; // Disponible
+                }
+            }
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_place, container, false);
+        // Ajouter les sièges au GridLayout
+        gridLayout.setColumnCount(COLUMNS); // Assurez-vous que le nombre de colonnes est correct
+        gridLayout.setRowCount(ROWS); // Assurez-vous que le nombre de rangées est correct
+
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLUMNS; col++) {
+                ImageView seatImageView = new ImageView(requireContext());
+
+                // Définir l'image selon l'état initial
+                switch (seatStates[row][col]) {
+                    case AVAILABLE:
+                        seatImageView.setImageResource(availableSeatImage);
+                        break;
+                    case RESERVED:
+                        seatImageView.setImageResource(reservedSeatImage);
+                        break;
+                    case UNAVAILABLE:
+                        seatImageView.setImageResource(unavailableSeatImage);
+                        break;
+                }
+
+                // Configurer le clic pour les sièges disponibles
+                if (seatStates[row][col] == SeatState.AVAILABLE) {
+                    int finalRow = row;
+                    int finalCol = col;
+                    seatImageView.setOnClickListener(new View.OnClickListener() {
+                        private boolean isSelected = false;
+
+                        @Override
+                        public void onClick(View v) {
+                            if (isSelected) {
+                                seatImageView.setImageResource(availableSeatImage); // Désélectionner
+                                isSelected = false;
+                            } else {
+                                seatImageView.setImageResource(reservedSeatImage); // Sélectionner
+                                isSelected = true;
+                            }
+                            Toast.makeText(requireContext(),
+                                    "Seat Selected: Row " + (finalRow + 1) + ", Column " + (finalCol + 1),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                // Ajouter l'image au GridLayout
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                params.rowSpec = GridLayout.spec(row);
+                params.columnSpec = GridLayout.spec(col);
+                params.width = 100;
+                params.height = 100;
+                params.setMargins(120, 50, 10, 10);
+
+                gridLayout.addView(seatImageView, params);
+            }
+        }
+
+        return rootView;
     }
 }

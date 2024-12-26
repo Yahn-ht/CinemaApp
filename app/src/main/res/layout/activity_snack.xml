@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_bold"
             android:text="Quelques douceurs de"
             android:textColor="@color/white"
             android:textSize="35sp"
@@ -31,6 +32,7 @@
             android:id="@+id/snack_text_end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
             android:text="Bonheur !"
             android:textColor="@color/yellow"
             android:textSize="35sp"
@@ -48,11 +50,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/yellow"
+                android:fontFamily="@font/poppins_medium"
                 android:text="Boissons"
                 android:textSize="10sp" />
 
             <Button
                 android:id="@+id/pop_button"
+                android:fontFamily="@font/poppins_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/yellow"
@@ -64,6 +68,7 @@
                 android:id="@+id/chips_button"
                 android:layout_width="wrap_content"
                 android:backgroundTint="@color/yellow"
+                android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="Chips"
@@ -81,6 +86,7 @@
             android:id="@+id/confirmButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
             style="@style/MyCustomButtonStyle"
             android:text="Valider la reservation" />
 

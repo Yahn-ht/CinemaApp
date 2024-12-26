@@ -16,7 +16,7 @@
                 android:id="@+id/ivSnackImage"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/popcorn_img"
+                android:src="@drawable/popcorn_img2"
                  />
 
             <TextView
@@ -24,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Popcorn"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="16sp"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/white" />
@@ -32,6 +33,7 @@
                 android:id="@+id/tvSnackQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
                 android:text="x3"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/white" />
@@ -40,6 +42,7 @@
                 android:id="@+id/tvSnackPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
                 android:text="20Dh"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/white" />

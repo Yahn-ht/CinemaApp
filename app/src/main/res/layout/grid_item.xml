@@ -22,12 +22,13 @@
             android:id="@+id/itemImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/coca_img1" />
+            android:src="@drawable/coca_img" />
 
         <TextView
             android:id="@+id/itemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
             android:layout_marginTop="8dp"
             android:text="Coca"
             android:textSize="16sp"
@@ -37,6 +38,7 @@
             android:id="@+id/itemPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
             android:layout_marginTop="8dp"
             android:text="14.5dh"
             android:textSize="16sp"

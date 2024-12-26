@@ -31,6 +31,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="L'ombre et le Trone"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -41,8 +42,8 @@
                 android:id="@+id/movieDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Un film est une œuvre audiovisuelle
-                 qui raconte une histoire ou explore un sujet à travers. "
+                android:fontFamily="@font/poppins_medium"
+                android:text="Un film est une œuvre audiovisuelle. "
                 android:textStyle="italic"
                 android:textColor="@color/white"
                 android:layout_marginLeft="90dp"

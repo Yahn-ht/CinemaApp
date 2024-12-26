@@ -47,11 +47,11 @@ public class SnackAdapter extends RecyclerView.Adapter<SnackAdapter.SnackViewHol
         holder.name.setText(snack.getName());
         holder.price.setText(snack.getPrix() + " dh");
         if(snack.getCategory().getName().equals("PopCorn")){
-            holder.picture.setImageResource(R.drawable.popcorn_img);
+            holder.picture.setImageResource(R.drawable.popcorn_img2);
         }else if(snack.getCategory().getName().equals("Boisson")){
-            holder.picture.setImageResource(R.drawable.coca_img1);
+            holder.picture.setImageResource(R.drawable.coca_img);
         }else{
-            holder.picture.setImageResource(R.drawable.chips_img);
+            holder.picture.setImageResource(R.drawable.chips_img2);
         }
         // Utiliser getOrDefault pour éviter les valeurs nulles
         int currentCount = selectedSnacks.getOrDefault(snack.getId(), 0);

@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Place 1"
+            android:fontFamily="@font/poppins_medium"
             android:textSize="16sp"
             android:textColor="@color/white" />
 
@@ -33,6 +34,7 @@
             android:id="@+id/tvPlaceCategorie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
             android:text="Standard"
             android:textSize="16sp"
             android:textColor="@color/white" />

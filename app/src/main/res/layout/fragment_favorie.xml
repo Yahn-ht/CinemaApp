@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@drawable/gradient_vertical"
     tools:context=".ui.favorie.FavorieFragment">
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/container"
@@ -20,16 +20,23 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/gradient_vertical"
-            android:src="@drawable/arrow" />
+            android:src="@drawable/ellipse" />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/arrowleft"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mes favories"
+            android:fontFamily="@font/poppins_bold"
             android:textStyle="bold"
             android:textColor="@color/yellow"
             android:textSize="35dp"
             android:textAlignment="center"/>
-    </LinearLayout>
+    </FrameLayout>
 
     <ListView
         android:id="@+id/myListView"
@@ -45,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Aucun favori trouvé"
         android:id="@+id/isEmpty"/>
 

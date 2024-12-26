@@ -38,11 +38,11 @@ public class SnackAdapter2 extends RecyclerView.Adapter<SnackAdapter2.SnackViewH
 
         // Chargement de l'image du snack
         if (snackReservation.getSnack().getCategory().getName().equals("Boisson") ) {
-            holder.ivSnackImage.setImageResource(R.drawable.coca_img1);
+            holder.ivSnackImage.setImageResource(R.drawable.coca_img);
         } else if (snackReservation.getSnack().getCategory().getName().equals("Chips")) {
-            holder.ivSnackImage.setImageResource(R.drawable.chips_img);
+            holder.ivSnackImage.setImageResource(R.drawable.chips_img2);
         }else{
-            holder.ivSnackImage.setImageResource(R.drawable.popcorn_img);
+            holder.ivSnackImage.setImageResource(R.drawable.popcorn_img2);
         }
     }
 
