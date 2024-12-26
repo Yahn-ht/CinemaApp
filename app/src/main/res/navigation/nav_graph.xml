@@ -83,6 +83,11 @@
         android:name="com.example.cinemaapp.ui.snack.SnackFragment"
         android:label="Snack" />
 
+    <fragment
+        android:id="@+id/reservationRecapFragment"
+        android:name="com.example.cinemaapp.ui.reservation.ReservationRecapFragment"
+        android:label="Reservation" />
+
 
 
 </navigation>

@@ -1,62 +1,101 @@
 package com.example.cinemaapp.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.example.cinemaapp.R;
-import com.example.cinemaapp.ui.snack.SnackItem;
+import com.example.cinemaapp.data.model.Snack;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class SnackAdapter extends BaseAdapter {
+public class SnackAdapter extends RecyclerView.Adapter<SnackAdapter.SnackViewHolder> {
+    private List<Snack> snacks;
+    private final Map<Integer, Integer> selectedSnacks = new HashMap<>();
 
-    private final Context context;
-    private final List<SnackItem> snackItems;
-    private  String category = null;
+    public SnackAdapter(List<Snack> snacks) {
+        this.snacks = snacks;
+    }
 
-    public SnackAdapter(Context context, List<SnackItem> snackItems,String category) {
-        this.context = context;
-        this.snackItems = snackItems;
-        this.category = category;
+    // Méthode pour mettre à jour les données
+    public void updateData(List<Snack> newSnackList) {
+        this.snacks = newSnackList;
+        notifyDataSetChanged();  // Notifie l'adaptateur pour rafraîchir les données affichées
+    }
+
+    public Map<Integer, Integer> getSelectedSnacks() {
+        return selectedSnacks;
+    }
+
+    @NonNull
+    @Override
+    public SnackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+        return new SnackViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return snackItems.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return snackItems.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.grid_item, parent, false);
+    public void onBindViewHolder(@NonNull SnackViewHolder holder, int position) {
+        Snack snack = snacks.get(position);
+        holder.name.setText(snack.getName());
+        holder.price.setText(snack.getPrix() + " dh");
+        if(snack.getCategory().getName().equals("PopCorn")){
+            holder.picture.setImageResource(R.drawable.popcorn_img);
+        }else if(snack.getCategory().getName().equals("Boisson")){
+            holder.picture.setImageResource(R.drawable.coca_img1);
+        }else{
+            holder.picture.setImageResource(R.drawable.chips_img);
         }
+        // Utiliser getOrDefault pour éviter les valeurs nulles
+        int currentCount = selectedSnacks.getOrDefault(snack.getId(), 0);
+        holder.counter.setText(String.valueOf(currentCount));
 
-        SnackItem currentItem = snackItems.get(position);
+        // Gestion des boutons
+        holder.increase.setOnClickListener(v -> {
+            int newCount = selectedSnacks.getOrDefault(snack.getId(), 0) + 1;  // Utilisation de getOrDefault ici aussi
+            selectedSnacks.put(snack.getId(), newCount);
+            holder.counter.setText(String.valueOf(newCount));
+        });
 
-        ImageView itemImage = convertView.findViewById(R.id.itemImage);
-        TextView itemTitle = convertView.findViewById(R.id.itemTitle);
-        TextView itemPrice = convertView.findViewById(R.id.itemPrice);
+        holder.decrease.setOnClickListener(v -> {
+            int newCount = selectedSnacks.getOrDefault(snack.getId(), 0) - 1;  // Utilisation de getOrDefault ici aussi
+            if (newCount < 0) newCount = 0; // Empêcher des valeurs négatives
+            selectedSnacks.put(snack.getId(), newCount);
+            holder.counter.setText(String.valueOf(newCount));
 
-        itemImage.setImageResource(currentItem.getImageResId());
-        itemTitle.setText(currentItem.getTitle());
-        itemPrice.setText(currentItem.getPrice());
+            // Supprimer les snacks avec un compte de 0
+            if (newCount == 0) {
+                selectedSnacks.remove(snack.getId());
+            }
+        });
+    }
 
-        return convertView;
+
+    @Override
+    public int getItemCount() {
+        return snacks.size();
+    }
+
+    public static class SnackViewHolder extends RecyclerView.ViewHolder {
+        TextView name, price, counter;
+        ImageView picture;
+        Button increase, decrease;
+
+        public SnackViewHolder(@NonNull View itemView) {
+            super(itemView);
+            name = itemView.findViewById(R.id.itemTitle);
+            price = itemView.findViewById(R.id.itemPrice);
+            counter = itemView.findViewById(R.id.itemQuantity);
+            picture = itemView.findViewById(R.id.itemImage);
+            increase = itemView.findViewById(R.id.buttonPlus);
+            decrease = itemView.findViewById(R.id.buttonMinus);
+        }
     }
 }

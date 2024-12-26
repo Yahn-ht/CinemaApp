@@ -1,9 +1,15 @@
 package com.example.cinemaapp.data.model;
 
+import androidx.annotation.NonNull;
+
+import com.example.cinemaapp.data.api.salles.MovieResponse;
+
+import java.util.List;
+
 public class Place {
     private int id;
     private int numero;
-    private boolean isReserve;
+    private List<Session> reserver;
     private PlaceCategory category;
     private boolean isSupp;
     private boolean isSelected;
@@ -24,14 +30,6 @@ public class Place {
         this.numero = numero;
     }
 
-    public boolean isReserve() {
-        return isReserve;
-    }
-
-    public void setReserve(boolean reserve) {
-        isReserve = reserve;
-    }
-
     public PlaceCategory getCategory() {
         return category;
     }
@@ -47,6 +45,7 @@ public class Place {
     public void setSupp(boolean supp) {
         isSupp = supp;
     }
+
     public boolean isSelected() {
         return isSelected;
     }
@@ -55,4 +54,41 @@ public class Place {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
+
+    public List<Session> getSessions() {
+        return reserver;
+    }
+
+    public void setSessions(List<Session> reserver) {
+        this.reserver = reserver;
+    }
+
+    public static class Session{
+        private int id;
+        private String date;
+        private MovieResponse movie;
+        private boolean isSupp;
+
+        public int getId() {
+            return id;
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return  "id=" + id ;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id=" + id +
+                ", numero=" + numero +
+                ", reserver=" + (reserver != null ? reserver.toString() : "null")+
+                ", isSupp=" + isSupp +
+                ", isSelected=" + isSelected +
+                '}';
+    }
+
 }

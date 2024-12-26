@@ -8,7 +8,8 @@ public class ReservationRequest implements Serializable {
 
     private List<Integer> places; // IDs des places sélectionnées
     private Map<Integer, Integer> snacks; // IDs des snacks et leurs quantités
-    private int movie; // ID du film
+    private int movie;// ID du film
+    private int session; // ID de la salle
 
 
     // Getters et Setters
@@ -35,6 +36,15 @@ public class ReservationRequest implements Serializable {
     public void setMovie(int movie) {
         this.movie = movie;
     }
+
+
+    public int getSession() {
+		return session;
+	}
+
+    public void setSession(int session) {
+		this.session = session;
+	}
 
     // Méthode toString pour le debug
     @Override

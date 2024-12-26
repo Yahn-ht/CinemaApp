@@ -1,6 +1,8 @@
 package com.example.cinemaapp.data.model;
 
-public class Session {
+import java.io.Serializable;
+
+public class Session implements Serializable {
     private int id;
     private String date;
     private Salle salle;

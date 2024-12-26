@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.data.api.ReservationRequest;
 import com.example.cinemaapp.data.model.Place;
 
 import java.util.List;
@@ -19,15 +20,17 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
     private final Context context;
     private final List<Place> seats;
     private final OnSeatClickListener listener;
+    private ReservationRequest reservationRequest;
 
     public interface OnSeatClickListener {
         void onSeatClick(Place seat);
     }
 
-    public SeatAdapter(Context context, List<Place> seats, OnSeatClickListener listener) {
+    public SeatAdapter(Context context, List<Place> seats, OnSeatClickListener listener, ReservationRequest reservationRequest) {
         this.context = context;
         this.seats = seats;
         this.listener = listener;
+        this.reservationRequest = reservationRequest;
     }
 
     @NonNull
@@ -40,9 +43,8 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
     @Override
     public void onBindViewHolder(@NonNull SeatViewHolder holder, int position) {
         Place seat = seats.get(position);
-
         // Gestion des images
-        if (seat.isReserve()) {
+        if (seat.getSessions().stream().anyMatch(session -> session.getId() == reservationRequest.getSession())) {
             holder.imageView.setImageResource(R.drawable.ic_seat_unavailable); // Image indisponible
         } else {
             holder.imageView.setImageResource(seat.isSelected()
@@ -52,7 +54,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (!seat.isReserve()) {
+            if (seat.getSessions().stream().noneMatch(session -> session.getId() == reservationRequest.getSession())) {
                 seat.setSelected(!seat.isSelected());
                 notifyItemChanged(position); // Met à jour l'affichage
                 listener.onSeatClick(seat);

@@ -96,14 +96,16 @@ public class SalleFragment extends Fragment {
         // Configuration du RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewSeats);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 5)); // 5 colonnes par exemple
-        seatAdapter = new SeatAdapter(getContext(), seats, seat -> {
+        //assert reservationRequest != null;
+        seatAdapter = new SeatAdapter(getContext(), seats , seat -> {
             // Gestion de la sélection
             if (seat.isSelected()) {
                 placesSelected.add(seat.getId());
             } else {
                 placesSelected.remove(Integer.valueOf(seat.getId()));
             }
-        });
+            System.out.println(seat);
+        }, reservationRequest);
         recyclerView.setAdapter(seatAdapter);
 
         // Récupération de l'ID de la salle

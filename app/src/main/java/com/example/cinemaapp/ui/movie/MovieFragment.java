@@ -155,8 +155,10 @@ public class MovieFragment extends Fragment {
                 SpinnerItem selectedItem = (SpinnerItem) spinner.getSelectedItem();
                 int movieId = selectedItem.getMovieId();
                 int salleId = selectedItem.getSalleId();
+                int sessionId = selectedItem.getSessionId();
                 ReservationRequest reservationRequest = new ReservationRequest();
                 reservationRequest.setMovie(movieId);
+                reservationRequest.setSession(sessionId);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("reservationRequest", reservationRequest);
                 bundle.putInt("roomId", salleId);
