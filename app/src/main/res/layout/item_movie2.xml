@@ -49,6 +49,8 @@
                 android:text="Il s'agit juste de la description du film"
                 android:textSize="10sp"
                 android:textColor="@color/white"
+                android:ellipsize="end"
+                android:maxLines="7"
                 />
 
 

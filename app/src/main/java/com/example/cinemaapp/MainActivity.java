@@ -1,11 +1,13 @@
 package com.example.cinemaapp;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -29,9 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialisation des composants
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        ColorStateList colorStateList = ContextCompat.getColorStateList(this, R.color.menu_item_color);
         //FloatingActionButton fabCentral = findViewById(R.id.fab_central);
         TokenManager tokenManager = TokenManager.getInstance(getApplicationContext());
-
+        bottomNavigationView.setItemIconTintList(colorStateList);
+        bottomNavigationView.setItemTextColor(colorStateList);
         // Récupérer NavController à partir du NavHostFragment
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragmentContainer);

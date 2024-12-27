@@ -2,13 +2,26 @@ package com.example.cinemaapp.ui.historique;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.adapter.ReservationAdapter;
+import com.example.cinemaapp.adapter.SnackAdapter;
+import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.data.repository.ReservationRepository;
+import com.example.cinemaapp.injection.ReservationViewModelFactory;
+import com.example.cinemaapp.viewmodel.ReservationViewModel;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +38,9 @@ public class HistoriqueFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView rvHistorique;
+    private ReservationAdapter adapter;
 
     public HistoriqueFragment() {
         // Required empty public constructor
@@ -63,4 +79,33 @@ public class HistoriqueFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_historique, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Initialisation de TokenManager
+        TokenManager tokenManager = TokenManager.getInstance(requireContext());
+
+        // Initialisation du RecyclerView
+        rvHistorique = view.findViewById(R.id.rvHistorique);
+        rvHistorique.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)); // Ajout du LayoutManager
+        adapter = new ReservationAdapter(new ArrayList<>());
+        rvHistorique.setAdapter(adapter); // Définir l'adaptateur ici pour éviter des erreurs
+
+        // Configuration de ViewModel
+        ReservationViewModel reservationViewModel = new ViewModelProvider(
+                this,
+                new ReservationViewModelFactory(new ReservationRepository(tokenManager))
+        ).get(ReservationViewModel.class);
+
+        // Observer les données des réservations
+        reservationViewModel.fetchReservations();
+        reservationViewModel.getReservations().observe(getViewLifecycleOwner(), reservations -> {
+            if (reservations != null) {
+                adapter.updateReservations(reservations); // Mettre à jour l'adaptateur avec les nouvelles données
+            }
+        });
+    }
+
 }

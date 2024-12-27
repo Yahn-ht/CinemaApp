@@ -10,10 +10,12 @@ import com.example.cinemaapp.data.api.ReservationResponse;
 import com.example.cinemaapp.data.api.RetrofitClient;
 import com.example.cinemaapp.data.api.SalleApi;
 import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.data.model.Snack;
 import com.google.gson.Gson;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,5 +59,32 @@ public class ReservationRepository {
         });
         return data;
     }
+
+
+
+    public LiveData<List<ReservationResponse>> getUserReservations() {
+        MutableLiveData<List<ReservationResponse>> reservationLiveData = new MutableLiveData<>();
+        apiService.getUserReservations().enqueue(new Callback<List<ReservationResponse>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<ReservationResponse>> call, @NonNull Response<List<ReservationResponse>> response) {
+                if (response.isSuccessful()) {
+                    reservationLiveData.setValue(response.body());
+                } else {
+                    reservationLiveData.setValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<ReservationResponse>> call, @NonNull Throwable t) {
+                reservationLiveData.setValue(null);
+            }
+        });
+        return reservationLiveData;
+    }
+
+
+
+
+
 }
 

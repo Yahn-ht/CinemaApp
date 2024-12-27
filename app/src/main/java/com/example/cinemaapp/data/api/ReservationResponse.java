@@ -180,6 +180,7 @@ public class ReservationResponse implements Serializable {
     public static class Movie implements Serializable {
         private int id;
         private String name;
+        private String image;
 
         // Getters et setters
         public int getId() {
@@ -196,6 +197,12 @@ public class ReservationResponse implements Serializable {
 
         public void setName(String name) {
             this.name = name;
+        }
+        public String getImage() {
+            return image;
+        }
+        public void setImage(String image) {
+            this.image = image;
         }
     }
 

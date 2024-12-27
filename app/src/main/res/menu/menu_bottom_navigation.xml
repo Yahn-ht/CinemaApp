@@ -16,7 +16,7 @@
         android:id="@+id/nav_favorite"
         android:icon="@drawable/fav"
         android:iconTint="@color/yellow"
-        android:title=""/>
+        android:title="Favoris"/>
 
     <item
         android:id="@+id/nav_history"

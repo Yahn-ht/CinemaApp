@@ -49,8 +49,6 @@ public class FavoriteMoviesAdapter extends android.widget.ArrayAdapter<Movie> {
         ImageView itemImage = convertView.findViewById(R.id.itemImage);
         TextView title = convertView.findViewById(R.id.title);
         TextView movieDescription = convertView.findViewById(R.id.movieDescription);
-        TextView cinemaTitle = convertView.findViewById(R.id.cinematitle);
-        ImageButton itemFavori = convertView.findViewById(R.id.itemFavori);
 
         // Remplir les données
         title.setText(movie.getName());
