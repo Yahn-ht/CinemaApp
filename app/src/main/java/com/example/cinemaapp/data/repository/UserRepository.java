@@ -1,6 +1,8 @@
 package com.example.cinemaapp.data.repository;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.cinemaapp.data.api.ApiCallback;
 import com.example.cinemaapp.data.api.AuthApi;
@@ -10,8 +12,11 @@ import com.example.cinemaapp.data.api.RegisterRequest;
 import com.example.cinemaapp.data.api.RegisterResponse;
 import com.example.cinemaapp.data.api.RetrofitClient;
 import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.data.model.Snack;
+import com.example.cinemaapp.data.model.User;
 
 import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +24,7 @@ import retrofit2.Response;
 
 public class UserRepository {
     private final AuthApi authApi;
+
 
     public UserRepository() {
         authApi = RetrofitClient.getInstanceWithoutToken().create(AuthApi.class);
@@ -77,4 +83,5 @@ public class UserRepository {
             }
         });
     }
+
 }

@@ -2,6 +2,7 @@ package com.example.cinemaapp.ui.home;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -158,6 +159,5 @@ public class HomeFragment extends Fragment {
             // Afficher un message d'erreur
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
         });
-        //return view;
     }
 }

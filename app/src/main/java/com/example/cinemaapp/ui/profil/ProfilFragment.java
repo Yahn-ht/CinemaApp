@@ -2,13 +2,26 @@ package com.example.cinemaapp.ui.profil;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.data.repository.ProfilRepository;
+import com.example.cinemaapp.data.repository.UserRepository;
+import com.example.cinemaapp.injection.ProfilViewModelFactory;
+import com.example.cinemaapp.injection.UserModelFactory;
+import com.example.cinemaapp.viewmodel.ProfilViewModel;
+import com.example.cinemaapp.viewmodel.UserViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +75,40 @@ public class ProfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profil, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextView nom = view.findViewById(R.id.nom);
+        EditText name = view.findViewById(R.id.name);
+        EditText email = view.findViewById(R.id.email);
+        TextView change_button = view.findViewById(R.id.change_button);
+        TextView deconnexion = view.findViewById(R.id.deconnexion);
+        TokenManager tokenManager = TokenManager.getInstance(getContext());
+        ProfilRepository profilRepository = new ProfilRepository(tokenManager);
+        ProfilViewModelFactory factory = new ProfilViewModelFactory(profilRepository);
+        ProfilViewModel profilViewModel = new ViewModelProvider(this,factory).get(ProfilViewModel.class);
+
+        profilViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            System.out.println("user: "+user);
+            if (user != null) {
+                nom.setText(user.getName());
+                name.setText(user.getName());
+                email.setText(user.getEmail());
+            }
+
+            name.setEnabled(false);
+            email.setEnabled(false);
+        });
+
+        profilViewModel.userInfo();
+
+        deconnexion.setOnClickListener(v -> {
+            tokenManager.clearToken();
+            // Rediriger vers la page de connexion
+            Navigation.findNavController(view).navigate(R.id.profile_to_login);
+        });
+
     }
 }

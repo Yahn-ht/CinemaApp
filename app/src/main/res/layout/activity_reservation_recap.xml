@@ -109,6 +109,18 @@
                 android:layout_marginTop="4dp"
                 android:textColor="@color/white" />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:id="@+id/backtohome_button"
+                android:fontFamily="@font/poppins_medium"
+                app:layout_constraintTop_toBottomOf="@id/spinner"
+                android:layout_marginHorizontal="50dp"
+                style="@style/MyCustomButtonStyle"
+                android:textColor="@color/black"
+                android:text="Retour à l'accueil"/>
+
         </LinearLayout>
     </ScrollView>
 

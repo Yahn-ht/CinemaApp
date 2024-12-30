@@ -49,7 +49,7 @@
                     android:textColor="@color/white"
                     android:layout_marginTop="20dp"
                     android:ellipsize="end"
-                    android:maxLines="7"
+                    android:maxLines="6"
                     />
             </LinearLayout>
 

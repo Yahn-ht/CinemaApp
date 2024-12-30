@@ -18,8 +18,11 @@ public class Movie implements Serializable {
     private String authorName;
     private List<Session> session;
     private List<Actor> actors;
+    private List<User> users;
     private CategorieMovie categorieMovie;
+    private boolean isFavorite = false;
     private boolean isSupp;
+    private int userConnect;
 
     // Getters et setters
 
@@ -99,6 +102,14 @@ public class Movie implements Serializable {
         this.categorieMovie = categorieMovie;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
     public boolean isSupp() {
         return isSupp;
     }
@@ -107,5 +118,33 @@ public class Movie implements Serializable {
         isSupp = supp;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public int getUserConnect() {
+        return userConnect;
+    }
+
+    public void setUserConnect(int userConnect) {
+        this.userConnect = userConnect;
+    }
+
+    public static class User implements Serializable{
+        private int id;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+
+        }
+    }
 
 }

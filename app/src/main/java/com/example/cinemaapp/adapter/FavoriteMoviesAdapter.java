@@ -12,7 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.data.api.BaseUrl;
 import com.example.cinemaapp.data.model.Movie;
 import com.example.cinemaapp.ui.favorie.FavorieFragment;
 
@@ -59,7 +61,15 @@ public class FavoriteMoviesAdapter extends android.widget.ArrayAdapter<Movie> {
 
 
         // Image placeholder (personnalisez selon votre implémentation)
-        itemImage.setImageResource(R.drawable.img);
+
+        String baseUrl = BaseUrl.BASE_URL +movie.getImage();
+        //itemImage.setImageResource(R.drawable.img);
+        // Charger l'image avec Glide
+        Glide.with(context)
+                .load(baseUrl) // Charger l'image depuis l'URL ou le chemin
+                .into(itemImage);
+
+
 
         return convertView;
     }

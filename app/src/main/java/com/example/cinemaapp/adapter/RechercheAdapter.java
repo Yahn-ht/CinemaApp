@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.cinemaapp.R;
+import com.example.cinemaapp.data.api.BaseUrl;
 import com.example.cinemaapp.data.model.Movie;
 
 import java.util.List;
@@ -42,8 +44,12 @@ public class RechercheAdapter extends android.widget.ArrayAdapter<Movie> {
         TextView title = convertView.findViewById(R.id.title);
         TextView description = convertView.findViewById(R.id.movieDescription);
 
-        // Afficher l'image du film (vous pouvez ajuster en fonction de l'URL ou du resource ID)
-        movieImage.setImageResource(R.drawable.img); // Ajustez en fonction de vos données
+        String baseUrl = BaseUrl.BASE_URL +currentMovie.getImage();
+        //itemImage.setImageResource(R.drawable.img);
+        // Charger l'image avec Glide
+        Glide.with(context)
+                .load(baseUrl) // Charger l'image depuis l'URL ou le chemin
+                .into(movieImage);
 
         title.setText(currentMovie.getName());
         description.setText(currentMovie.getDescription());

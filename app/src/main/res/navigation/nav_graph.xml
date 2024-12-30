@@ -10,10 +10,12 @@
         android:label="Login" >
         <action
             android:id="@+id/action_login_to_register"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            />
         <action
             android:id="@+id/action_login_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            />
     </fragment>
 
     <fragment
@@ -22,7 +24,8 @@
         android:label="Register" >
         <action
             android:id="@+id/action_register_to_login"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            />
     </fragment>
 
     <fragment
@@ -45,7 +48,11 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.cinemaapp.ui.profil.ProfilFragment"
-        android:label="Profile" />
+        android:label="Profile">
+        <action
+            android:id="@+id/profile_to_login"
+            app:destination="@id/loginFragment"/>
+    </fragment>
 
 
     <fragment

@@ -24,11 +24,12 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintTop_toTopOf="parent">
                 <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     app:layout_constraintCircleRadius="20dp"
                     android:scaleType="centerCrop"
-                    android:background="@drawable/img"
+                    android:background="@drawable/gradient_vertical"
+                    android:src="@drawable/profil"
                     />
             </androidx.cardview.widget.CardView>
 
@@ -54,7 +55,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="30sp"
+                    android:id="@+id/nom"
+                    android:textSize="25sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -76,7 +78,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/text2"
                 android:textAlignment="center"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="@color/white"
                 android:text="Si necessaire,vous pouvez mettre à jour vos informations"/>
 
@@ -102,42 +104,7 @@
                         android:background="@color/white"
                         android:hint="Name"
                         />
-                    <EditText
-                        android:id="@+id/birthdate"
-                        android:layout_width="match_parent"
-                        android:inputType="date"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="25dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:layout_marginVertical="15dp"
-                        android:padding="18dp"
-                        android:background="@color/white"
-                        android:hint="Numero"
-                        />
-                    <EditText
-                        android:id="@+id/tel"
-                        android:layout_width="match_parent"
-                        android:inputType="number"
-                        android:fontFamily="@font/poppins_regular"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="25dp"
-                        android:layout_marginVertical="15dp"
-                        android:padding="18dp"
-                        android:background="@color/white"
-                        android:hint="Telephone"
-                        />
-                    <EditText
-                        android:id="@+id/addresse"
-                        android:layout_width="match_parent"
-                        android:inputType="textEmailAddress"
-                        android:fontFamily="@font/poppins_regular"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="25dp"
-                        android:layout_marginVertical="15dp"
-                        android:padding="18dp"
-                        android:background="@color/white"
-                        android:hint="Adresse"
-                        />
+
                     <EditText
                         android:id="@+id/email"
                         android:layout_width="match_parent"
@@ -151,15 +118,24 @@
                         android:hint="Email"
                         />
 
-                    <Button
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/connect_button"
+                        android:id="@+id/change_button"
+                        android:layout_marginVertical="10dp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginHorizontal="50dp"
-                        style="@style/MyCustomButtonStyle"
-                        android:textColor="@color/black"
-                        android:text="Sauvegarder"/>
+                        android:textColor="@color/yellow"
+                        android:text="Modifier" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/deconnexion"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_marginHorizontal="50dp"
+                        android:textColor="@color/yellow"
+                        android:text="Se Deconnecter"/>
 
                 </LinearLayout>
             </ScrollView>

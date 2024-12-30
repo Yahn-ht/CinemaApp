@@ -10,6 +10,7 @@ import com.example.cinemaapp.data.api.LoginResponse;
 import com.example.cinemaapp.data.api.RegisterRequest;
 import com.example.cinemaapp.data.api.RegisterResponse;
 import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.data.model.User;
 import com.example.cinemaapp.data.repository.UserRepository;
 import com.example.cinemaapp.ui.register.RegisterFragment;
 import com.example.cinemaapp.ui.user.LoginFragment;
@@ -58,5 +59,6 @@ public class UserViewModel extends ViewModel {
             }
         });
     }
+
 }
 

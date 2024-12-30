@@ -12,6 +12,7 @@ import com.example.cinemaapp.data.api.FavResponse;
 import com.example.cinemaapp.data.model.Movie;
 import com.example.cinemaapp.data.repository.MovieRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieViewModel extends ViewModel {
@@ -79,6 +80,18 @@ public class MovieViewModel extends ViewModel {
         movieRepository.getMovies(new ApiCallback<List<Movie>>() {
             @Override
             public void onSuccess(List<Movie> movies) {
+
+                for (Movie movie :  movies) {
+                    List<Movie.User> users = movie.getUsers();
+                    List<Integer> userIds = new ArrayList<>();
+                    for (Movie.User user : users) {
+                        userIds.add(user.getId());
+                    }
+
+                    if (userIds.contains(movie.getUserConnect())) {
+                        movie.setFavorite(true);
+                    }
+                }
                 firstMovieLiveData.setValue(movies.get(movies.size() - 1));
                 moviesLiveData.setValue(movies);
             }
@@ -110,6 +123,9 @@ public class MovieViewModel extends ViewModel {
         movieRepository.getFavMovies(new ApiCallback<List<Movie>>() {
             @Override
             public void onSuccess(List<Movie> movies) {
+                for (Movie movie :  movies) {
+                    movie.setFavorite(true);
+                }
                 favoriteMoviesLiveData.setValue(movies);
             }
 

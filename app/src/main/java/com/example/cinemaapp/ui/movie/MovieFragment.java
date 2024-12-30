@@ -46,7 +46,7 @@ public class MovieFragment extends Fragment {
     private String mParam2;
 
     private ImageView favoriteIcon;
-    private boolean isFavorite = false; // Initialement non favori
+    //private boolean isFavorite = false; // Initialement non favori
     private MovieViewModel movieViewModel;
 
     public MovieFragment() {
@@ -138,6 +138,11 @@ public class MovieFragment extends Fragment {
             categorie.setText(movie.getCategorieMovie().getName());
             auteur.setText(movie.getAuthorName());
             description.setText(movie.getDescription());
+            if (movie.isFavorite()) {
+                favoriteIcon.setImageResource(R.drawable.heartfav);
+            } else {
+                favoriteIcon.setImageResource(R.drawable.notfav);
+            }
         }
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -175,15 +180,15 @@ public class MovieFragment extends Fragment {
         });
 
         favoriteIcon.setOnClickListener(v -> {
-            if (isFavorite) {
+            if (movie.isFavorite()) {
                 movieViewModel.removeFavoriteMovie(movie.getId());
                 Toast.makeText(getContext(), "Supprimé des favoris", Toast.LENGTH_SHORT).show();
             } else {
                 movieViewModel.addFavoriteMovie(movie.getId());
                 Toast.makeText(getContext(), "Ajouté aux favoris", Toast.LENGTH_SHORT).show();
             }
-            isFavorite = !isFavorite;
-            updateFavoriteIcon();
+            movie.setFavorite(!movie.isFavorite());
+            updateFavoriteIcon(movie);
         });
     }
 
@@ -196,14 +201,14 @@ public class MovieFragment extends Fragment {
 
     private void styliserDropDownTextView(TextView textView) {
         textView.setTextSize(14);
-        textView.setTypeface(null, Typeface.NORMAL);
+        textView.setTypeface(null, Typeface.BOLD);
         textView.setTextColor(Color.parseColor("#000000"));
         textView.setPadding(20, 20, 20, 20);
         textView.setBackgroundColor(Color.parseColor("#F5F5F5"));
     }
 
-    private void updateFavoriteIcon() {
-        if (isFavorite) {
+    private void updateFavoriteIcon(Movie movie) {
+        if (movie.isFavorite()) {
             favoriteIcon.setImageResource(R.drawable.heartfav);
         } else {
             favoriteIcon.setImageResource(R.drawable.notfav);

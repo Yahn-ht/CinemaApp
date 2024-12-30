@@ -1,11 +1,17 @@
 package com.example.cinemaapp.ui.reservation;
 
+import static android.app.PendingIntent.getActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -13,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinemaapp.MainActivity;
 import com.example.cinemaapp.R;
 import com.example.cinemaapp.adapter.PlaceAdapter;
 import com.example.cinemaapp.adapter.SnackAdapter2;
@@ -22,6 +29,7 @@ public class ReservationRecapActivity extends AppCompatActivity {
     private TextView tvTotalAmount, tvMovieName;
     private RecyclerView rvPlaces, rvSnacks;
     private LinearLayout sectionSnacks;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,7 @@ public class ReservationRecapActivity extends AppCompatActivity {
         rvPlaces = findViewById(R.id.rvPlaces);
         rvSnacks = findViewById(R.id.rvSnacks);
         sectionSnacks = findViewById(R.id.sectionSnacks);
+        backButton = findViewById(R.id.backtohome_button);
 
         // Récupération de l'objet ReservationResponse depuis l'intent
         ReservationResponse reservation = (ReservationResponse) getIntent().getSerializableExtra("reservationResponse");
@@ -55,6 +64,16 @@ public class ReservationRecapActivity extends AppCompatActivity {
         } else {
             sectionSnacks.setVisibility(View.GONE); // Cache la section des snacks
         }
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                Intent intent = new Intent(ReservationRecapActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
