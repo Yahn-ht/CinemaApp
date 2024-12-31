@@ -114,6 +114,7 @@ public class SnackActivity extends AppCompatActivity {
                     Intent intent1 = new Intent(this, ReservationRecapActivity.class);
                     intent1.putExtra("reservationResponse", reservationResponse);
                     startActivity(intent1);
+                    finish();
                 }else {
                     System.out.println("Erreur lors de la création de la réservation.");
                 }

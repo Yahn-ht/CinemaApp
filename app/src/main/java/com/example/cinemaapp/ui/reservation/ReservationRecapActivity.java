@@ -68,11 +68,21 @@ public class ReservationRecapActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 Intent intent = new Intent(ReservationRecapActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Bloquer ou personnaliser le retour en arrière
+                Toast.makeText(getApplicationContext(), "Retour désactivé", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -81,5 +91,9 @@ public class ReservationRecapActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.cinemaapp.ui.profil;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.example.cinemaapp.data.repository.ProfilRepository;
 import com.example.cinemaapp.data.repository.UserRepository;
 import com.example.cinemaapp.injection.ProfilViewModelFactory;
 import com.example.cinemaapp.injection.UserModelFactory;
+import com.example.cinemaapp.ui.user.LoginActivity;
 import com.example.cinemaapp.viewmodel.ProfilViewModel;
 import com.example.cinemaapp.viewmodel.UserViewModel;
 
@@ -107,7 +109,9 @@ public class ProfilFragment extends Fragment {
         deconnexion.setOnClickListener(v -> {
             tokenManager.clearToken();
             // Rediriger vers la page de connexion
-            Navigation.findNavController(view).navigate(R.id.profile_to_login);
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
         });
 
     }

@@ -114,14 +114,14 @@ public class RegisterFragment extends Fragment {
 
         login_text.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_register_to_login);
+            navController.navigate(R.id.login_fragment);
         });
 
         userViewModel.getStatusMessage().observe(getViewLifecycleOwner(), message -> {
             if (message.startsWith("Registration successful")) {
                 // Navigation vers HomeFragment
                 NavController navController = Navigation.findNavController(view);
-                navController.navigate(R.id.action_register_to_login);
+                navController.navigate(R.id.login_fragment);
             } else if (message.startsWith("Error")) {
                 // Afficher un message d'erreur
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();

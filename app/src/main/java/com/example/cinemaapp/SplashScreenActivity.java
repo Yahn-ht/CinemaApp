@@ -11,6 +11,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.ui.user.LoginActivity;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static final int SPLASH_DELAY = 3000; // 3 secondes
@@ -22,6 +25,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash_screen);
 
+        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext());
+
         // Animation de transition
         findViewById(R.id.logo).startAnimation(
                 AnimationUtils.loadAnimation(this, R.anim.fade_in));
@@ -29,8 +34,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         // Délai avant de lancer l'activité principale
         new Handler().postDelayed(() -> {
             // Lancer l'activité principale
-            Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-            startActivity(intent);
+            if (tokenManager.getToken() != null) {
+                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out); // Transition
             // Terminer le SplashScreen pour ne pas revenir dessus
             finish();

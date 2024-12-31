@@ -2,9 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/loginFragment">
+    app:startDestination="@+id/homeFragment">
 
-    <fragment
+    <!--<fragment
         android:id="@+id/loginFragment"
         android:name="com.example.cinemaapp.ui.user.LoginFragment"
         android:label="Login" >
@@ -26,7 +26,7 @@
             android:id="@+id/action_register_to_login"
             app:destination="@id/loginFragment"
             />
-    </fragment>
+    </fragment>-->
 
     <fragment
         android:id="@+id/homeFragment"
@@ -43,15 +43,20 @@
     <fragment
         android:id="@+id/movieFragment"
         android:name="com.example.cinemaapp.ui.movie.MovieFragment"
-        android:label="Movie" />
+        android:label="Movie" >
+        <action
+            android:id="@+id/movie_to_favorite"
+            app:destination="@id/favoriteFragment"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.cinemaapp.ui.profil.ProfilFragment"
         android:label="Profile">
-        <action
+        <!--<action
             android:id="@+id/profile_to_login"
-            app:destination="@id/loginFragment"/>
+            app:destination="@id/loginFragment"/>-->
     </fragment>
 
 
@@ -74,11 +79,6 @@
         android:id="@+id/searchFragment"
         android:name="com.example.cinemaapp.ui.recherche.RechercheFragment"
         android:label="Recherche" />
-
-    <fragment
-        android:id="@id/favoriteFragment"
-        android:name="com.example.cinemaapp.ui.favorie.FavorieFragment"
-        android:label="Favoris" />
 
     <fragment
         android:id="@+id/salleFragment"

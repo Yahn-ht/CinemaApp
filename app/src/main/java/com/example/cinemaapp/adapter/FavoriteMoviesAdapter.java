@@ -33,6 +33,7 @@ public class FavoriteMoviesAdapter extends android.widget.ArrayAdapter<Movie> {
         this.listener = listener;
     }
 
+
     public interface OnMovieClickListener {
         void onMovieItemClick(Movie selectedMovie);  // Méthode pour gérer le clic sur un film
     }

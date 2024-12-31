@@ -197,4 +197,9 @@ public class MovieViewModel extends ViewModel {
             };
             handler.postDelayed(searchRunnable, 2000); // 2 secondes de délai
         }
+
+    public void refreshFavoriteMovies() {
+        favoriteMoviesLiveData.setValue(favoriteMoviesLiveData.getValue());
     }
+
+}

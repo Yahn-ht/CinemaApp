@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/register_fragment"
-    android:orientation="vertical"
     android:background="@drawable/gradient_vertical"
-    tools:context=".ui.register.RegisterFragment">
+    tools:context=".ui.register.RegisterActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/poppins_semibold"
-        android:layout_marginVertical="50dp"
-        android:text="Inscription"
-        android:textColor="@color/white"
-        android:textSize="35sp"
-        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginVertical="50dp"
+            android:text="Inscription"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
 
         <LinearLayout
@@ -35,7 +41,7 @@
                 android:padding="18dp"
                 android:inputType="text"
                 android:hint="Inserez votre nom"
-                 />
+                />
 
             <EditText
                 android:id="@+id/email"
@@ -96,21 +102,23 @@
             android:text="S'inscrire"/>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_text"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="0dp"
-        android:fontFamily="@font/poppins_medium"
-        android:clickable="true"
-        android:gravity="center"
-        android:focusable="true"
-        android:minHeight="48dp"
-        android:text="Vous avez déja un compte ? Connectez-vous"
-        android:textColor="@color/yellow"
-        android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_text"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/poppins_medium"
+            android:clickable="true"
+            android:gravity="center"
+            android:focusable="true"
+            android:minHeight="48dp"
+            android:text="Vous avez déja un compte ? Connectez-vous"
+            android:textColor="@color/yellow"
+            android:textSize="15sp" />
 
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

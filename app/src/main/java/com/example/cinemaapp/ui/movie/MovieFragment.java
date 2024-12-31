@@ -3,6 +3,7 @@ package com.example.cinemaapp.ui.movie;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.bumptech.glide.Glide;
 import com.example.cinemaapp.R;
 import com.example.cinemaapp.data.api.BaseUrl;
@@ -36,6 +38,9 @@ import com.example.cinemaapp.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.ZonedDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MovieFragment extends Fragment {
 
@@ -134,7 +139,9 @@ public class MovieFragment extends Fragment {
                     .into(imageView);
 
             textView.setText(movie.getName());
-            duree.setText(movie.getDuree());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                duree.setText(ZonedDateTime.parse(movie.getDuree(),DateTimeFormatter.ISO_DATE_TIME).toLocalTime().toString());
+            }
             categorie.setText(movie.getCategorieMovie().getName());
             auteur.setText(movie.getAuthorName());
             description.setText(movie.getDescription());
