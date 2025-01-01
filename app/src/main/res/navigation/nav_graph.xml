@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/homeFragment">
+
+    <!--<fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.cinemaapp.ui.user.LoginFragment"
+        android:label="Login" >
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment"
+            />
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homeFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.cinemaapp.ui.register.RegisterFragment"
+        android:label="Register" >
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/loginFragment"
+            />
+    </fragment>-->
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.cinemaapp.ui.home.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/home_to_movie_fragment"
+            app:destination="@id/movieFragment"/>
+        <action
+            android:id="@+id/home_to_movies_list_fragment"
+            app:destination="@id/moviesListFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.example.cinemaapp.ui.movie.MovieFragment"
+        android:label="Movie" >
+        <action
+            android:id="@+id/movie_to_favorite"
+            app:destination="@id/favoriteFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.cinemaapp.ui.profil.ProfilFragment"
+        android:label="Profile">
+        <!--<action
+            android:id="@+id/profile_to_login"
+            app:destination="@id/loginFragment"/>-->
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.cinemaapp.ui.favorie.FavorieFragment"
+        android:label="Favories" />
+
+    <fragment
+        android:id="@+id/moviesListFragment"
+        android:name="com.example.cinemaapp.ui.movie.MoviesListFragment"
+        android:label="Movies List" />
+
+    <fragment
+        android:id="@+id/historique_fragment"
+        android:name="com.example.cinemaapp.ui.historique.HistoriqueFragment"
+        android:label="Historique" />
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.cinemaapp.ui.recherche.RechercheFragment"
+        android:label="Recherche" />
+
+    <fragment
+        android:id="@+id/salleFragment"
+        android:name="com.example.cinemaapp.ui.salle.SalleFragment"
+        android:label="Salle" />
+
+    <fragment
+        android:id="@+id/snackFragment"
+        android:name="com.example.cinemaapp.ui.snack.SnackFragment"
+        android:label="Snack" />
+
+    <fragment
+        android:id="@+id/reservationRecapFragment"
+        android:name="com.example.cinemaapp.ui.reservation.ReservationRecapFragment"
+        android:label="Reservation" />
+
+
+
+</navigation>

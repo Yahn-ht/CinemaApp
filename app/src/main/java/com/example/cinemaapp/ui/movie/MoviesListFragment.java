@@ -1,22 +1,29 @@
-package com.example.cinemaapp;
+package com.example.cinemaapp.ui.movie;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.example.cinemaapp.R;
+import com.example.cinemaapp.adapter.MovieAdapter;
 import com.example.cinemaapp.adapter.MovieAdapter2;
-import com.example.cinemaapp.data.model.Movie;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.cinemaapp.data.api.TokenManager;
+import com.example.cinemaapp.data.repository.MovieRepository;
+import com.example.cinemaapp.injection.MovieModelFactory;
+import com.example.cinemaapp.viewmodel.MovieViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +40,8 @@ public class MoviesListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private MovieViewModel movieViewModel;
+    private ProgressBar progressBar;
 
     public MoviesListFragment() {
         // Required empty public constructor
@@ -76,37 +85,45 @@ public class MoviesListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        TokenManager tokenManager = TokenManager.getInstance(requireContext());
+        MovieRepository movieRepository = new MovieRepository(tokenManager);
+        progressBar = view.findViewById(R.id.progressBar);
+        //userViewModel = new ViewModelProvider(this, UserModelFactory.getInstance(new UserRepository(), tokenManager)).get(UserViewModel.class);
+        MovieModelFactory factory = new MovieModelFactory(movieRepository);
+        movieViewModel = new ViewModelProvider(this, factory).get(MovieViewModel.class);
+
+        movieViewModel.loadMovies();
+
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        MovieAdapter2 adapter = new MovieAdapter2(getMovieList());
+        MovieAdapter2 adapter = new MovieAdapter2(movie -> {
+            //Toast.makeText(requireContext(), "Movie clicked:", Toast.LENGTH_SHORT).show();
+            NavController navController = Navigation.findNavController(view);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("movie_key", movie);
+            navController.navigate(R.id.movieFragment,bundle);
+        });
         recyclerView.setAdapter(adapter);
+
+        movieViewModel.getMovies().observe(getViewLifecycleOwner(), movies -> {
+            adapter.setMovies(movies);
+        });
+
+        movieViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        movieViewModel.getError().observe(getViewLifecycleOwner(), error -> {
+            // Afficher un message d'erreur
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
+        });
     }
 
-    private List<Movie> getMovieList() {
-        List<Movie> movieList = new ArrayList<>();
-        movieList.add(new Movie(
-                "Inception",
-                "A thief who steals corporate secrets through the use of dream-sharing technology.",
-                R.drawable.img));
-        movieList.add(new Movie(
-                "The Dark Knight",
-                "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc.",
-                R.drawable.img));
-        movieList.add(new Movie(
-                "Interstellar",
-                "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
-                R.drawable.img));
-        movieList.add(new Movie(
-                "The Matrix",
-                "A computer hacker learns about the true nature of his reality and his role in the war.",
-                R.drawable.img));
-        movieList.add(new Movie(
-                "Avatar",
-                "A paraplegic Marine is dispatched to the moon Pandora to establish connections with the Na'vi.",
-                R.drawable.img));
-        return movieList;
-    }
 }

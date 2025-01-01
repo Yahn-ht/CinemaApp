@@ -1,6 +1,6 @@
-package com.example.cinemaapp;
+package com.example.cinemaapp.ui.snack;
 
-class SnackItem {
+public class SnackItem {
         private final int imageResId;
         private final String title;
         private final String price;

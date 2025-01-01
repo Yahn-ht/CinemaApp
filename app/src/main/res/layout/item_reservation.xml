@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/gradient_vertical"
+        >
+
+        <!-- Section Image et Détails -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Image ou logo du film -->
+            <ImageView
+                android:id="@+id/imageMoviePoster"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentStart="true"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="12dp" />
+
+            <!-- Nom du film -->
+            <TextView
+                android:id="@+id/textMovieName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageMoviePoster"
+                android:text="Nom du film"
+                android:textSize="18sp"
+                android:textColor="@color/yellow"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1" />
+
+            <!-- Date de la réservation -->
+            <TextView
+                android:id="@+id/textReservationDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageMoviePoster"
+                android:layout_below="@id/textMovieName"
+                android:text="Réservé le : 2024-12-26"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                android:layout_marginTop="4dp" />
+
+            <!-- Prix Total -->
+            <TextView
+                android:id="@+id/textTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageMoviePoster"
+                android:layout_below="@id/textReservationDate"
+                android:text="Total : 170 €"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="4dp" />
+        </RelativeLayout>
+
+        <!-- Ligne de séparation -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginVertical="12dp" />
+
+        <!-- Section pour Snacks réservés -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start">
+
+            <!-- Snacks réservés -->
+            <TextView
+                android:id="@+id/textSnacksReserved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Snacks : PopCorn x3, Coca x1"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:ellipsize="end"
+                android:maxLines="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/register_fragment"
     android:orientation="vertical"
     android:background="@drawable/gradient_vertical"
     tools:context=".ui.register.RegisterFragment">
@@ -11,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/poppins_semibold"
         android:layout_marginVertical="50dp"
         android:text="Inscription"
         android:textColor="@color/white"
@@ -27,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:fontFamily="@font/poppins_medium"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginVertical="15dp"
                 android:padding="18dp"
@@ -37,6 +40,7 @@
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:inputType="textEmailAddress"
@@ -49,8 +53,9 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
                 android:background="@color/white"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginVertical="15dp"
                 android:padding="18dp"
@@ -60,8 +65,9 @@
                 android:id="@+id/conf_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
                 android:background="@color/white"
-                android:inputType="numberPassword"
+                android:inputType="textPassword"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginVertical="15dp"
                 android:padding="18dp"
@@ -72,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkbox"
+            android:fontFamily="@font/poppins_medium"
             android:text="J'accepte les conditions d'utilisation"
             android:layout_marginHorizontal="25dp"
             android:textColor="@color/white"
@@ -79,15 +86,30 @@
             />
 
         <Button
+            android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
             android:layout_marginHorizontal="50dp"
             style="@style/MyCustomButtonStyle"
             android:textColor="@color/black"
             android:text="S'inscrire"/>
 
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_text"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="0dp"
+        android:fontFamily="@font/poppins_medium"
+        android:clickable="true"
+        android:gravity="center"
+        android:focusable="true"
+        android:minHeight="48dp"
+        android:text="Vous avez déja un compte ? Connectez-vous"
+        android:textColor="@color/yellow"
+        android:textSize="15sp" />
 
 
 

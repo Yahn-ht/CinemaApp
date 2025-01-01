@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradient_vertical"
+    tools:context=".ui.place.PlaceFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choix des places"
+        android:fontFamily="@font/poppins_semibold"
+        android:textStyle="bold"
+        android:textColor="@color/yellow"
+        android:textSize="30dp"
+        android:textAlignment="center" 
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choisissez vos sièges"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/place_img"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <GridLayout
+        android:id="@+id/GridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="5"
+        android:alignmentMode="alignMargins">
+
+    </GridLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suivant"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginTop="360dp"
+        android:layout_marginLeft="300dp"
+        android:backgroundTint="@color/yellow"/>
+
+
+</LinearLayout>
