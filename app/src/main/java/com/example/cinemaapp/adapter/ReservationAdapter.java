@@ -40,7 +40,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         // Bind data to views
         holder.textMovieName.setText(reservation.getMovieReserve().getName());
         holder.textReservationDate.setText("Réservé le : " + reservation.getCreatedAt());
-        holder.textTotalPrice.setText("Total : " + reservation.getMontant() + " €");
+        holder.textTotalPrice.setText("Total : " + reservation.getMontant() + " Dh");
 
         // Display snacks
         StringBuilder snacks = new StringBuilder();
