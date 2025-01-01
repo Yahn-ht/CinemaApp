@@ -2,7 +2,9 @@ package com.example.cinemaapp.ui.snack;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +39,7 @@ public class SnackActivity extends AppCompatActivity {
     private Button boisson;
     private Button chips;
     private Button popCorn;
+    private ProgressBar progressBar;
 
 
 
@@ -55,6 +58,7 @@ public class SnackActivity extends AppCompatActivity {
         boisson = findViewById(R.id.boisson_button);
         chips = findViewById(R.id.chips_button);
         popCorn = findViewById(R.id.pop_button);
+        progressBar = findViewById(R.id.progressBar);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         snackAdapter = new SnackAdapter(new ArrayList<>());
@@ -85,6 +89,13 @@ public class SnackActivity extends AppCompatActivity {
             }
         });
 
+        snackViewModel.getIsLoading().observe((LifecycleOwner) this, isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
         boisson.setOnClickListener(v -> {
             snackViewModel.filterSnacksByCategory("Boisson");
         });
@@ -102,15 +113,19 @@ public class SnackActivity extends AppCompatActivity {
         ReservationViewModel reservationViewModel = new ViewModelProvider(this, new ReservationViewModelFactory(new ReservationRepository(tokenManager))).get(ReservationViewModel.class);
         confirmButton.setOnClickListener(v -> {
             Map<Integer, Integer> selectedSnacks = snackAdapter.getSelectedSnacks();
+            assert reservationRequest != null;
             reservationRequest.setSnacks(selectedSnacks);
             //System.out.println(reservationRequest);
+            reservationViewModel.getIsLoading().observe((LifecycleOwner) this, isLoading -> {
+                        if (isLoading) {
+                            progressBar.setVisibility(View.VISIBLE);
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
             reservationViewModel.createReservation(reservationRequest);
             reservationViewModel.getReservationResponse().observe((LifecycleOwner) this, reservationResponse -> {
                 if (reservationResponse != null) {
-                    //Bundle bundle = new Bundle();
-                    //bundle.putSerializable("reservationResponse", reservationResponse);
-                    //NavController navController = Navigation.findNavController(view);
-                    //navController.navigate(R.id.reservationRecapFragment, bundle);
                     Intent intent1 = new Intent(this, ReservationRecapActivity.class);
                     intent1.putExtra("reservationResponse", reservationResponse);
                     startActivity(intent1);

@@ -156,7 +156,7 @@ public class MovieFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
-                Toast.makeText(getContext(), "Film ID: " + selectedItem.getMovieId() + ", Session ID: " + selectedItem.getSessionId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Film ID: " + selectedItem.getMovieId() + ", Session ID: " + selectedItem.getSessionId(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

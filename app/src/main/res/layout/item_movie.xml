@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="5dp"
             android:fontFamily="@font/poppins_medium"
-            android:textAlignment="viewStart"
+            android:layout_gravity="center"
             android:text="Hell"
             android:textSize="16sp"
             android:textColor="@color/white"

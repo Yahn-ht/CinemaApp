@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,10 +32,11 @@ import java.util.List;
 public class RechercheFragment extends Fragment {
 
     private EditText searchEditText;
-    private ImageButton searchButton;
+    private ImageView searchButton;
     private ListView listView;
     private RechercheAdapter adapter;
     private MovieViewModel rechercheViewModel;
+    private ProgressBar progressBar;
 
     public RechercheFragment() {
         // Required empty public constructor
@@ -52,6 +55,7 @@ public class RechercheFragment extends Fragment {
 
         searchEditText = view.findViewById(R.id.searchEditText);
         searchButton = view.findViewById(R.id.searchButton);
+        progressBar = view.findViewById(R.id.progressBar);
         listView = view.findViewById(R.id.listView);
 
         // Initialisation de TokenManager et MovieRepository
@@ -82,6 +86,14 @@ public class RechercheFragment extends Fragment {
             }
 
 
+        });
+
+        rechercheViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
+            }
         });
 
         // Gestion des clics

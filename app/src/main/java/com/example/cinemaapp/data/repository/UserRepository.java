@@ -41,7 +41,7 @@ public class UserRepository {
                         // Lire et afficher le corps de la réponse d'erreur
                         String errorResponse = response.errorBody() != null ? response.errorBody().string() : "No error body";
                         System.out.println("Response body: " + errorResponse);
-                        callback.onError("Failed to login: " + response.code() + ", Error: " + errorResponse);
+                        callback.onError("Failed to registre: " + errorResponse);
                     } catch (IOException e) {
                         e.printStackTrace();
                         callback.onError("Error reading error response body: " + e.getMessage());
@@ -68,7 +68,7 @@ public class UserRepository {
                         // Lire et afficher le corps de la réponse d'erreur
                         String errorResponse = response.errorBody() != null ? response.errorBody().string() : "No error body";
                         System.out.println("Response body: " + errorResponse);
-                        callback.onError("Failed to login: " + response.code() + ", Error: " + errorResponse);
+                        callback.onError("Failed to login: " + errorResponse);
                     } catch (IOException e) {
                         e.printStackTrace();
                         callback.onError("Error reading error response body: " + e.getMessage());

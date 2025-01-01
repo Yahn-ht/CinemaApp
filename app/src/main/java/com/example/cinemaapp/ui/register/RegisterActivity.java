@@ -2,8 +2,10 @@ package com.example.cinemaapp.ui.register;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.example.cinemaapp.viewmodel.UserViewModel;
 public class RegisterActivity extends AppCompatActivity {
 
     private UserViewModel userViewModel;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText conf_passwordEdit = findViewById(R.id.conf_password);
         Button register = findViewById(R.id.register);
         TextView login_text = findViewById(R.id.login_text);
+        progressBar = findViewById(R.id.progressBar);
 
         register.setOnClickListener(v -> {
             String nom= nomEdit.getText().toString().trim();
@@ -79,6 +83,14 @@ public class RegisterActivity extends AppCompatActivity {
             } else if (message.startsWith("Error")) {
                 // Afficher un message d'erreur
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        userViewModel.getIsLoading().observe((LifecycleOwner) this, isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
             }
         });
 

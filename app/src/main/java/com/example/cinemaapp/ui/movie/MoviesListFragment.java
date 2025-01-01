@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.cinemaapp.R;
@@ -40,6 +41,7 @@ public class MoviesListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private MovieViewModel movieViewModel;
+    private ProgressBar progressBar;
 
     public MoviesListFragment() {
         // Required empty public constructor
@@ -85,6 +87,7 @@ public class MoviesListFragment extends Fragment {
 
         TokenManager tokenManager = TokenManager.getInstance(requireContext());
         MovieRepository movieRepository = new MovieRepository(tokenManager);
+        progressBar = view.findViewById(R.id.progressBar);
         //userViewModel = new ViewModelProvider(this, UserModelFactory.getInstance(new UserRepository(), tokenManager)).get(UserViewModel.class);
         MovieModelFactory factory = new MovieModelFactory(movieRepository);
         movieViewModel = new ViewModelProvider(this, factory).get(MovieViewModel.class);
@@ -107,6 +110,14 @@ public class MoviesListFragment extends Fragment {
 
         movieViewModel.getMovies().observe(getViewLifecycleOwner(), movies -> {
             adapter.setMovies(movies);
+        });
+
+        movieViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
+            }
         });
 
         movieViewModel.getError().observe(getViewLifecycleOwner(), error -> {

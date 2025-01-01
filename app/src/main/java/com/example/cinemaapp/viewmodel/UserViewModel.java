@@ -21,6 +21,8 @@ public class UserViewModel extends ViewModel {
     private final TokenManager tokenManager;
 
     private final MutableLiveData<String> statusMessage = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLoadingLiveData = new MutableLiveData<>();
+
     public LiveData<String> getStatusMessage() {
         return statusMessage;
     }
@@ -30,24 +32,33 @@ public class UserViewModel extends ViewModel {
         this.tokenManager = tokenManager;
     }
 
+    public LiveData<Boolean> getIsLoading() {
+        return isLoadingLiveData;
+    }
+
     public void register(RegisterRequest request) {
+        isLoadingLiveData.setValue(true);
         userRepository.register(request, new ApiCallback<RegisterResponse>() {
             @Override
             public void onSuccess(RegisterResponse response) {
+                isLoadingLiveData.setValue(false);
                 statusMessage.postValue("Registration successful: " + response.getMessage());
             }
 
             @Override
             public void onError(String error) {
+                isLoadingLiveData.setValue(false);
                 statusMessage.postValue("Error: " + error);
             }
         });
     }
 
     public void login(LoginRequest request) {
+        isLoadingLiveData.setValue(true);
         userRepository.login(request, new ApiCallback<LoginResponse>() {
             @Override
             public void onSuccess(LoginResponse response) {
+                isLoadingLiveData.setValue(false);
                 String token = response.getToken();
                 tokenManager.saveToken(token);
                 statusMessage.postValue("Login successful, token: " + response.getToken());
@@ -55,6 +66,7 @@ public class UserViewModel extends ViewModel {
 
             @Override
             public void onError(String error) {
+                isLoadingLiveData.setValue(false);
                 statusMessage.postValue("Error: " + error);
             }
         });

@@ -18,15 +18,27 @@ public class SnackViewModel extends ViewModel {
     private final MutableLiveData<List<Snack>> snacks = new MutableLiveData<>();
     private final MutableLiveData<List<Snack>> filteredSnacks = new MutableLiveData<>();
     private final Map<Integer, Integer> selectedSnacks = new HashMap<>();
+    private final MutableLiveData<Boolean> isLoadingLiveData = new MutableLiveData<>();
 
     public SnackViewModel(SnackRepository snackRepository) {
         this.snackRepository = snackRepository;
         fetchSnacks();
     }
 
+    public LiveData<Boolean> getIsLoading() {
+        return isLoadingLiveData;
+    }
+
     // Récupère la liste complète des snacks depuis le repository
     private void fetchSnacks() {
-        snackRepository.getSnacks().observeForever(snacks::setValue);
+        isLoadingLiveData.setValue(true);
+        snackRepository.getSnacks().observeForever(
+                snacks -> {
+                    this.snacks.setValue(snacks);
+                    filteredSnacks.setValue(snacks);
+                    isLoadingLiveData.setValue(false);
+                }
+        );
     }
 
     // Retourne la liste des snacks complète

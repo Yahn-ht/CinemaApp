@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.cinemaapp.R;
 import com.example.cinemaapp.adapter.ReservationAdapter;
@@ -41,6 +43,8 @@ public class HistoriqueFragment extends Fragment {
 
     private RecyclerView rvHistorique;
     private ReservationAdapter adapter;
+    private TextView emptyView;
+    private ProgressBar progressBar;
 
     public HistoriqueFragment() {
         // Required empty public constructor
@@ -86,8 +90,12 @@ public class HistoriqueFragment extends Fragment {
 
         // Initialisation de TokenManager
         TokenManager tokenManager = TokenManager.getInstance(requireContext());
+        emptyView = view.findViewById(R.id.isEmpty);
+
+
 
         // Initialisation du RecyclerView
+        progressBar = view.findViewById(R.id.progressBar);
         rvHistorique = view.findViewById(R.id.rvHistorique);
         rvHistorique.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)); // Ajout du LayoutManager
         adapter = new ReservationAdapter(new ArrayList<>());
@@ -102,8 +110,19 @@ public class HistoriqueFragment extends Fragment {
         // Observer les données des réservations
         reservationViewModel.fetchReservations();
         reservationViewModel.getReservations().observe(getViewLifecycleOwner(), reservations -> {
-            if (reservations != null) {
+            if (!reservations.isEmpty()) {
+                emptyView.setVisibility(View.GONE);
                 adapter.updateReservations(reservations); // Mettre à jour l'adaptateur avec les nouvelles données
+            }else {
+                emptyView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        reservationViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

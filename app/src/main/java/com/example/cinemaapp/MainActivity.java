@@ -76,18 +76,18 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_films) {
                 navController.navigate(R.id.homeFragment);
-                Toast.makeText(this, "Films", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Films", Toast.LENGTH_SHORT).show();
             } else if (item.getItemId() == R.id.nav_search) {
-                Toast.makeText(this, "Recherche", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Recherche", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.searchFragment);
             } else if (item.getItemId() == R.id.nav_history) {
-                Toast.makeText(this, "Historique", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Historique", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.historique_fragment);
             } else if (item.getItemId() == R.id.nav_profile) {
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.profileFragment);
             } else if (item.getItemId() == R.id.nav_favorite) {
-                Toast.makeText(this, "Favorie", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Favorie", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.favoriteFragment);
             }
             return true;
@@ -99,24 +99,7 @@ public class MainActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                // Obtenez le fragment actuel
-                Fragment currentFragment = getSupportFragmentManager()
-                        .findFragmentById(R.id.fragmentContainer)
-                        .getChildFragmentManager()
-                        .getFragments()
-                        .get(0);
-
-                // Vérifiez si le fragment actuel est HomeFragment
-                if (currentFragment instanceof HomeFragment) {
-                    // Gérer le double clic pour quitter
-                    handleBackPressForHomeFragment();
-                } else {
-                    // Permettre le retour par défaut
-                    setEnabled(false);
-                    onBackPressed();
-
-
-                }
+                finishAffinity();
             }
         });
 

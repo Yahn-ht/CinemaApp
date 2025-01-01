@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,6 +100,7 @@ public class HomeFragment extends Fragment {
         TextView titre = view.findViewById(R.id.movieTitle);
         Button button = view.findViewById(R.id.button);
         ImageView image = view.findViewById(R.id.image);
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
 
         voirTout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +154,10 @@ public class HomeFragment extends Fragment {
                     navController.navigate(R.id.movieFragment,bundle);
                 }
             });
+        });
+
+        movieViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         });
 
 

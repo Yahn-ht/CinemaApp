@@ -2,8 +2,10 @@ package com.example.cinemaapp.ui.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ import com.example.cinemaapp.viewmodel.UserViewModel;
 public class LoginActivity extends AppCompatActivity {
 
     private UserViewModel userViewModel;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText passwordEditText = findViewById(R.id.password_text);
         Button button = findViewById(R.id.connect_button);
         TextView textView = findViewById(R.id.register_text);
+        progressBar = findViewById(R.id.progressBar);
 
         button.setOnClickListener(v -> {
             String email = emailEditText.getText().toString().trim();
@@ -73,6 +77,15 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             }
         });
+
+        userViewModel.getIsLoading().observe((LifecycleOwner) this, isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
+                }
+            });
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

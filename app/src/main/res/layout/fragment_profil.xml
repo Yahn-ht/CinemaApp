@@ -60,7 +60,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:text="Hajar"/>
+                    android:text=""/>
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -99,9 +99,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="25dp"
                         android:layout_marginVertical="15dp"
-                        android:padding="18dp"
+                        android:padding="16dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:background="@color/white"
+                        android:background="@android:color/background_light"
                         android:hint="Name"
                         />
 
@@ -113,8 +113,8 @@
                         android:fontFamily="@font/poppins_regular"
                         android:layout_marginHorizontal="25dp"
                         android:layout_marginVertical="15dp"
-                        android:padding="18dp"
-                        android:background="@color/white"
+                        android:padding="16dp"
+                        android:background="@android:color/background_light"
                         android:hint="Email"
                         />
 

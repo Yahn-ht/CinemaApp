@@ -77,10 +77,11 @@ public class MovieViewModel extends ViewModel {
 
     // Charger tous les films
     public void loadMovies() {
+        isLoadingLiveData.setValue(true);
         movieRepository.getMovies(new ApiCallback<List<Movie>>() {
             @Override
             public void onSuccess(List<Movie> movies) {
-
+                isLoadingLiveData.setValue(false);
                 for (Movie movie :  movies) {
                     List<Movie.User> users = movie.getUsers();
                     List<Integer> userIds = new ArrayList<>();
@@ -98,6 +99,7 @@ public class MovieViewModel extends ViewModel {
 
             @Override
             public void onError(String errorMessage) {
+                isLoadingLiveData.setValue(false);
                 errorLiveData.setValue(errorMessage);
             }
         });
@@ -120,9 +122,11 @@ public class MovieViewModel extends ViewModel {
 
     // Charger les films favoris
     public void loadFavoriteMovies() {
+        isLoadingLiveData.setValue(true);
         movieRepository.getFavMovies(new ApiCallback<List<Movie>>() {
             @Override
             public void onSuccess(List<Movie> movies) {
+                isLoadingLiveData.setValue(false);
                 for (Movie movie :  movies) {
                     movie.setFavorite(true);
                 }
@@ -131,6 +135,7 @@ public class MovieViewModel extends ViewModel {
 
             @Override
             public void onError(String errorMessage) {
+                isLoadingLiveData.setValue(false);
                 errorLiveData.setValue(errorMessage);
             }
         });

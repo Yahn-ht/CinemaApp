@@ -2,7 +2,9 @@ package com.example.cinemaapp.ui.salle;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -40,6 +42,7 @@ public class SalleActivity extends AppCompatActivity {
     private List<Place> seats = new ArrayList<>();
     private List<Integer> placesSelected = new ArrayList<>();
     private Button nextButton;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class SalleActivity extends AppCompatActivity {
 
         nextButton = findViewById(R.id.buttonNext);
         // Configuration du RecyclerView
+        progressBar = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.recyclerViewSeats);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 5)); // 5 colonnes par exemple
         //assert reservationRequest != null;
@@ -79,6 +83,14 @@ public class SalleActivity extends AppCompatActivity {
                 seats.clear();
                 seats.addAll(room.getPlaces());
                 seatAdapter.notifyDataSetChanged();
+            }
+        });
+
+        roomViewModel.getIsLoading().observe((LifecycleOwner) this, isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
             }
         });
 

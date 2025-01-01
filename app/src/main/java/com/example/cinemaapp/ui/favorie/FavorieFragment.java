@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class FavorieFragment extends Fragment {
     private ListView listView;
     private TextView emptyView; // Vue pour afficher un message si la liste est vide
     private FavoriteMoviesAdapter adapter;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,8 +44,8 @@ public class FavorieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         listView = view.findViewById(R.id.myListView);
-        emptyView = view.findViewById(R.id.isEmpty); // Assurez-vous que cette vue est présente dans le layout XML
-
+        emptyView = view.findViewById(R.id.isEmpty);// Assurez-vous que cette vue est présente dans le layout XML
+        progressBar = view.findViewById(R.id.progressBar);
         // Initialisation de TokenManager et MovieRepository
         TokenManager tokenManager = TokenManager.getInstance(requireContext());
         if (tokenManager == null) {
@@ -83,6 +85,14 @@ public class FavorieFragment extends Fragment {
             }
         });
 
+        movieViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
         listView.setOnItemLongClickListener((parent, clickedView, position, id) -> {
             Movie selectedMovie = adapter.getItem(position);
             if (selectedMovie != null) {
@@ -112,7 +122,7 @@ public class FavorieFragment extends Fragment {
 
     public void onMovieItemClick(Movie selectedMovie) {
         // Gérer l'action lors du clic sur un élément de la liste
-        Toast.makeText(requireContext(), "Film sélectionné : " + selectedMovie.getName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(requireContext(), "Film sélectionné : " + selectedMovie.getName(), Toast.LENGTH_SHORT).show();
         NavController navController = Navigation.findNavController(requireView());
         Bundle bundle = new Bundle();
         bundle.putSerializable("movie_key", selectedMovie);
